@@ -1,14 +1,30 @@
 .profile {
-    min-width: 320px;
+    min-width: 282px;
     max-width: 880px;
     margin: 0 auto;
     display: grid;
-    grid-template-rows: repeat(2,minmax(216px, 1fr));
-    grid-template-columns: repeat(4, minmax(216px, 1fr));
-    gap: 16px 30px;
+    grid-template-rows: repeat(2, minmax(24px, max-content));
+    grid-template-columns: repeat(4, minmax(120px, max-content));
+    gap: 0 16px;
     grid-template-areas:
-    "logo title . button"
+    "logo title edit button"
     "logo subtitle . button";
-    padding: 0 0 50px 0;
+    padding: 40px 0 50px 0;
     box-sizing: border-box;
+}
+
+@media screen and (max-width: 767px) {
+    .profile {
+        grid-template-rows: repeat(4, minmax(24px, max-content));
+        grid-template-columns: repeat(2, minmax(120px, max-content));       
+        gap: 0;
+        grid-template-areas:
+        "logo logo"
+        "title edit"
+        "subtitle subtitle"
+        "button button";
+        align-items: center;
+        justify-items: center;
+       padding: 42px 0 36px 0;
+    }
 }

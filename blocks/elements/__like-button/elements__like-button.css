@@ -1,6 +1,15 @@
 .elements__like-button {
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
-    border: 0;
+    width: 22px;
+    height: 19px;
+    border: none;
+    background: url(../../../images/elements-like-button.png) center no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    /* opacity: 0.5;
+    transition: 0.3s;
+    background-color: #fff; */
+ 
 }
