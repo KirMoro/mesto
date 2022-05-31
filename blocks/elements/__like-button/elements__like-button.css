@@ -1,15 +1,13 @@
 .elements__like-button {
-    width: 22px;
-    height: 19px;
     border: none;
-    background: url(../../../images/elements-like-button.png) center no-repeat;
-    background-size: 100%;
+    background-color: none;
     cursor: pointer;
     position: absolute;
     top: 30px;
-    right: 20px;
-    /* opacity: 0.5;
-    transition: 0.3s;
-    background-color: #fff; */
- 
+    right: 20px; 
+}
+
+.elements__like-button:hover {
+    opacity: 0.5;
+    fill: black;
 }

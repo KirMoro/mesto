@@ -1,45 +1,34 @@
 const edit_btn = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
-const popupCloseBtn = document.querySelector('.popup__close-button');
+const popupCloseBtn = popup.querySelector('.popup__close-button');
+
+let nameInput = popup.querySelector('.form__field-name');
+let jobInput = popup.querySelector('.form__field-about');
+let nameProfile = document.querySelector('.profile__title');
+let jobProfile = document.querySelector('.profile__subtitle');
+
+function openPopup() {
+    popup.classList.add('popup_opened');
+
+    nameInput.value = nameProfile.textContent;
+    jobInput.value = jobProfile.textContent;
+}
 
 function closePopup() {
     popup.classList.remove('popup_opened');
 }
 
-edit_btn.addEventListener('click', function() {
-    popup.classList.add('popup_opened');
-});
+function formSubmitHandler (evt) {
+    evt.preventDefault();
+    
+    nameProfile.textContent = nameInput.value;
+    jobProfile.textContent = jobInput.value;
 
-popupCloseBtn.addEventListener('click', function() {
     closePopup();
-});
+}
 
-popup.addEventListener('click', function(x) {
-    if (x.target === x.currentTarget) {
-        closePopup();
-    }
-});
+edit_btn.addEventListener('click', openPopup);
 
-// // Находим форму в DOM
-// let formElement = // Воспользуйтесь методом querySelector()
-// // Находим поля формы в DOM
-// let nameInput = // Воспользуйтесь инструментом .querySelector()
-// let jobInput = // Воспользуйтесь инструментом .querySelector()
+popupCloseBtn.addEventListener('click', closePopup);
 
-// // Обработчик «отправки» формы, хотя пока
-// // она никуда отправляться не будет
-// function formSubmitHandler (evt) {
-//     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-//                                                 // Так мы можем определить свою логику отправки.
-//                                                 // О том, как это делать, расскажем позже.
-
-//     // Получите значение полей jobInput и nameInput из свойства value
-
-//     // Выберите элементы, куда должны быть вставлены значения полей
-
-//     // Вставьте новые значения с помощью textContent
-// }
-
-// // Прикрепляем обработчик к форме:
-// // он будет следить за событием “submit” - «отправка»
-// formElement.addEventListener('submit', formSubmitHandler);
+popup.addEventListener('submit', formSubmitHandler);

@@ -1,4 +1,5 @@
 .elements__item-text {
+    max-width: 282px;
     display: flex;
     justify-content: flex-start;
     background-color: #fff;

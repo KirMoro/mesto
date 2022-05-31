@@ -1,17 +1,19 @@
-.input__text {
+.form__field-name {
+    width: 358px;
+    height: 27px;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    width: 358px;
-    height: 27px;
     color: #000;
     border: none;
     border-bottom: 1px solid #000;
-    opacity: 0.2;
     box-sizing: border-box;
     margin: 0 0 30px 0;
+    padding: 0 0 13px 0;
   }
 
-  .input__text:last-child {
-    margin: 0 0 48px 0;
-  }
+  @media screen and (max-width: 767px ) {
+    .form__field-name {
+      width: 238px;
+    }
+  }    

@@ -1,9 +1,17 @@
 .elements {
-    min-width: 282px;
+    width: 90%;
     max-width: 880px;
     margin: 0 auto;
     padding: 0 0 66px 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(282px, 282px));
     gap: 20px 17px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+    .elements {
+        max-width: 282px;
+        padding: 0 0 48px 0;
+    }
 }
