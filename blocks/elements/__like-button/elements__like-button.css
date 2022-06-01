@@ -1,6 +1,9 @@
 .elements__like-button {
+    width: 22px;
+    height: 19px;
     border: none;
-    background-color: none;
+    background-color: white;
+    background-image: url(../../../images/elements_like-btn.svg);
     cursor: pointer;
     position: absolute;
     top: 30px;
@@ -9,5 +12,4 @@
 
 .elements__like-button:hover {
     opacity: 0.5;
-    fill: black;
 }
