@@ -1,4 +1,4 @@
-.form__field-about {
+.form__field {
     width: 358px;
     height: 27px;
     font-weight: 400;
@@ -8,12 +8,13 @@
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
-    margin: 0 0 48px 0;
+    margin: 0 0 30px 0;
     padding: 0 0 13px 0;
+    outline: none;
   }
 
   @media screen and (max-width: 767px ) {
-    .form__field-about {
+    .form__field {
       width: 238px;
     }
   }    

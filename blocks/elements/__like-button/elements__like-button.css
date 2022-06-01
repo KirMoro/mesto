@@ -7,7 +7,9 @@
     cursor: pointer;
     position: absolute;
     top: 30px;
-    right: 20px; 
+    right: 20px;
+    outline: none;
+    transition: opacity 0.5s;
 }
 
 .elements__like-button:hover {
