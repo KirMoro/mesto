@@ -3,7 +3,7 @@
 Учебный проект четвертого спринта в курсе Яндекс.Практикум «Веб-разработчик» — приложение «Место»
 
 Проект доступен по ссылке —
-https://kirmoro.github.io/russian-travel/index.html
+https://kirmoro.github.io/mesto/
 
 HTML 
 CSS 
