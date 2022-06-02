@@ -7,12 +7,8 @@ const jobInput = popup.querySelector('.form__field_type_about');
 const nameProfile = document.querySelector('.profile__title');
 const jobProfile = document.querySelector('.profile__subtitle');
 
-function openPopup() {
-    popup.classList.add('popup_opened');
-}
-
-function closePopup() {
-    popup.classList.remove('popup_opened');
+function togglePopup() {
+    popup.classList.toggle('popup_opened');
 }
 
 function fillingInputs() {
@@ -26,14 +22,14 @@ function formSubmitHandler (evt) {
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
 
-    closePopup();
+    togglePopup();
 }
 
 editBtn.addEventListener('click', function () {
-    openPopup();
+    togglePopup();
     fillingInputs();
 });
 
-popupCloseBtn.addEventListener('click', closePopup);
+popupCloseBtn.addEventListener('click', togglePopup);
 
 popup.addEventListener('submit', formSubmitHandler);
