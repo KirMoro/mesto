@@ -19,51 +19,7 @@
             <button type="button" class="profile__edit-button" aria-label="Редактировать"></button>
             <button type="button" class="profile__add-button" aria-label="Добавить"></button>
         </section>
-        <section class="elements" aria-label="Галерея">
-            <!-- <article class="elements__item">
-                <img src="./images/elements-karachaevsk.png" class="elements__image" alt="Карачаевск">
-                    <div class="elements__item-text">
-                        <h2 class="elements__title">Карачаевск</h2>
-                        <button type="button" class="elements__like-button" aria-label="Понравилось"></button>
-                    </div>
-                <button type="button" class="elements__trash-button" aria-label="Корзина"></button>
-            </article>
-            <article class="elements__item">
-                <img src="./images/elements-elbrus.png" class="elements__image" alt="Эльбрус">
-                    <div class="elements__item-text">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button type="button" class="elements__like-button" aria-label="Понравилось"></button>
-                    </div>
-            </article>
-            <article class="elements__item">
-                <img src="./images/elements-dombai.png" class="elements__image" alt="Домбай">
-                    <div class="elements__item-text">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button type="button" class="elements__like-button" aria-label="Понравилось"></button>
-                    </div>
-            </article>        
-            <article class="elements__item">
-                <img src="./images/elements-elbrus.png" class="elements__image" alt="Эльбрус">
-                    <div class="elements__item-text">
-                        <h2 class="elements__title">Гора Эльбрус</h2>
-                        <button type="button" class="elements__like-button" aria-label="Понравилось"></button>
-                    </div>
-            </article>
-            <article class="elements__item">
-                <img src="./images/elements-dombai.png" class="elements__image" alt="Домбай">
-                    <div class="elements__item-text">
-                        <h2 class="elements__title">Домбай</h2>
-                        <button type="button" class="elements__like-button" aria-label="Понравилось"></button>
-                    </div>
-            </article>
-            <article class="elements__item">
-                <img src="./images/elements-karachaevsk.png" class="elements__image" alt="Карачаевск">
-                    <div class="elements__item-text">
-                        <h2 class="elements__title">Карачаево-Черкесск</h2>
-                        <button type="button" class="elements__like-button" aria-label="Понравилось"></button>
-                    </div>
-            </article> -->
-        </section>
+        <section class="elements" aria-label="Галерея"></section>
         <footer class="footer">
             <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
@@ -90,10 +46,17 @@
             <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
         </div>
     </div>
-
+    <div class="popup popup_type_image"></div>
+<template id="popup-template">
+    <figure class="popup__gallery">
+        <img class="popup__image" src="" alt="">
+        <figcaption class="popup__capture"></figcaption>
+        <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
+    </figure>
+</template>
 <template id="item-template">
     <article class="elements__item">
-        <img class="elements__image" alt="">
+        <input type="image" class="elements__image" alt="">
             <div class="elements__item-text">
                 <h2 class="elements__title"></h2>
                 <button type="button" class="elements__like-button" aria-label="Понравилось"></button>

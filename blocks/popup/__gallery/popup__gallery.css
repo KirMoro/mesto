@@ -1,0 +1,5 @@
+.popup__gallery {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}

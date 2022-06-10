@@ -5,7 +5,7 @@
     padding: 0 0 66px 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(282px, 282px));
-    grid-template-rows: repeat(auto-fit, minmax(min-content, max-content));
+    grid-auto-rows: 367px;
     gap: 20px 17px;
     justify-content: center;
 }
