@@ -2,7 +2,7 @@ const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const addItemPopup = document.querySelector('.popup_type_add');
-const imagePopup = document.querySelector('.popup_type_image');
+const imageViewPopup = document.querySelector('.popup_type_image');
 const popupCloseBtns = document.querySelectorAll('.popup__close-button');
 const formEditProfile = document.querySelector('.form_type_edit');
 const formAddCard = document.querySelector('.form_type_add');
@@ -94,7 +94,7 @@ function createCard (element) {
         popupImage.src = initialElementImage.src;
         popupImage.alt = initialElementImage.alt;
         popupCapture.textContent = initialElementImage.alt;
-        openPopup(imagePopup);
+        openPopup(imageViewPopup);
     });
 
     return initialElement;
@@ -118,9 +118,9 @@ function addCardSubmit (evt) {
     itemElement.link = linkInput.value;
    
     if (itemElement.name === '' || itemElement.link === '') {
-        addCardSubmit
+        addCardSubmit;
         } else {
-            renderCard(itemElement)
+            renderCard(itemElement);
 
             closePopup(addItemPopup);
             
