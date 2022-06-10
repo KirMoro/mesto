@@ -27,7 +27,7 @@
     <div class="popup popup_type_edit">
         <div class="popup__container">
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form name="form-edit" class="form">
+            <form name="form-edit" class="form form_type_edit">
                 <input type="text" name="name" placeholder="Имя" class="form__field form__field_type_name">
                 <input type="text" name="about" placeholder="О себе" class="form__field form__field_type_about">
                 <button type='submit' class="form__submit-button" aria-label="Сохранить">Сохранить</button>
@@ -38,7 +38,7 @@
     <div class="popup popup_type_add">
         <div class="popup__container">
             <h3 class="popup__title">Новое место</h3>
-            <form name="form-add" class="form">
+            <form name="form-add" class="form form_type_add">
                 <input type="text" name="title" placeholder="Название" class="form__field form__field_type_title">
                 <input type="text" name="link" placeholder="Ссылка на картинку" class="form__field form__field_type_link">
                 <button type='submit' class="form__submit-button" aria-label="Создать">Создать</button>
@@ -46,14 +46,13 @@
             <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
         </div>
     </div>
-    <div class="popup popup_type_image"></div>
-<template id="popup-template">
-    <figure class="popup__gallery">
-        <img class="popup__image">
-        <figcaption class="popup__capture"></figcaption>
-        <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
-    </figure>
-</template>
+    <div class="popup popup_color_black popup_type_image">
+            <figure class="popup__gallery">
+                <img class="popup__image">
+                <figcaption class="popup__capture"></figcaption>
+                <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
+            </figure>
+    </div>
 <template id="item-template">
     <article class="elements__item">
         <input type="image" class="elements__image" alt="">
