@@ -137,9 +137,9 @@ cardAddBtn.addEventListener('click', function () {
     openPopup(popupAddCard);
 });
 
-popupCloseBtns.forEach(function (closeBtn) {
-    closeBtn.addEventListener('click', function () {
-    const popupClosest = closeBtn.closest('.popup');
+popupCloseBtns.forEach(function (popupCloseBnt) {
+    popupCloseBnt.addEventListener('click', function () {
+    const popupClosest = popupCloseBnt.closest('.popup');
     closePopup(popupClosest);
     })
 });
