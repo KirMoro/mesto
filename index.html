@@ -28,8 +28,8 @@
         <div class="popup__container">
             <h3 class="popup__title">Редактировать профиль</h3>
             <form name="form-edit" class="form form_type_edit">
-                <input type="text" name="name" placeholder="Имя" class="form__field form__field_type_name">
-                <input type="text" name="about" placeholder="О себе" class="form__field form__field_type_about">
+                <input type="text" name="name" placeholder="Имя" class="form__field form__field_type_name" minlength="2" maxlength="40" required>
+                <input type="text" name="about" placeholder="О себе" class="form__field form__field_type_about" minlength="2" maxlength="200" required>
                 <button type='submit' class="form__submit-button" aria-label="Сохранить">Сохранить</button>
             </form>
             <button type="button" class="popup__close-button" aria-label="Закрыть"></button>
@@ -39,8 +39,8 @@
         <div class="popup__container">
             <h3 class="popup__title">Новое место</h3>
             <form name="form-add" class="form form_type_add">
-                <input type="text" name="title" placeholder="Название" class="form__field form__field_type_title">
-                <input type="text" name="link" placeholder="Ссылка на картинку" class="form__field form__field_type_link">
+                <input type="text" name="title" placeholder="Название" class="form__field form__field_type_title" minlength="2" maxlength="30" required>
+                <input type="url" name="link" placeholder="Ссылка на картинку" class="form__field form__field_type_link" required>
                 <button type='submit' class="form__submit-button" aria-label="Создать">Создать</button>
             </form>
             <button type="button" class="popup__close-button" aria-label="Закрыть"></button>

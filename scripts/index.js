@@ -49,19 +49,21 @@ function toggleLike(likeElement) {
     likeElement.classList.toggle('elements_like-button_active');
 }
  
-// function closePopupByKey(evt) {
-//   if (evt.key === 'Escape') {
-//     console.log(evt.target)
-//     // closePopup(evt.target.closest('.popup'));
-//   }
-// }
+function closePopupByKey(evt) {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+}
 
 function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
+    document.addEventListener('keydown', closePopupByKey)
 }
 
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closePopupByKey)
 }
 
 function fillingInputs() {
@@ -166,17 +168,17 @@ formAddCard.addEventListener('submit', addCardSubmit);
 
 
 
-const enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll('.form'));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-      });
+// const enableValidation = () => {
+//     const formList = Array.from(document.querySelectorAll('.form'));
+//     formList.forEach((formElement) => {
+//       formElement.addEventListener('submit', function (evt) {
+//         evt.preventDefault();
+//       });
       
-  const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
+//   const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
   
-  fieldsetList.forEach((fieldSet) => {
-    setEventListeners(fieldSet);
-  });
-  });
-}
+//   fieldsetList.forEach((fieldSet) => {
+//     setEventListeners(fieldSet);
+//   });
+//   });
+// }
