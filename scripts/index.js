@@ -58,12 +58,12 @@ function closePopupByKey(evt) {
 
 function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
-    document.addEventListener('keydown', closePopupByKey)
+    document.addEventListener('keydown', closePopupByKey);
 }
 
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closePopupByKey)
+    document.removeEventListener('keydown', closePopupByKey);
 }
 
 function fillingInputs() {
@@ -165,71 +165,3 @@ popups.forEach(function (popup) {
 formEditProfile.addEventListener('submit', formEditSubmitHandler);
 
 formAddCard.addEventListener('submit', addCardSubmit);
-
-// VALIDATION
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__field_type_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__field-error_active');
-};
-
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__field_type_error');
-  errorElement.classList.remove('form__field-error_active');
-  errorElement.textContent = '';
-};
-
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-function hasInvalidInput (inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-};
-
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('form__submit-button_disabled');
-  } else {
-    buttonElement.classList.remove('form__submit-button_disabled');
-  }
-};
-
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.form__field'));
-  const buttonElement = formElement.querySelector('.form__submit-button');
-
-  toggleButtonState(inputList, buttonElement);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-function enableValidation() {
-    const formList = Array.from(document.querySelectorAll('.form'));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-      });
-      
-    const fieldsetList = Array.from(formElement.querySelectorAll('.form__fields'));
-    
-    fieldsetList.forEach((fieldSet) => {
-      setEventListeners(fieldSet);
-    });
-    });
-}
-
-enableValidation();
