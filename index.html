@@ -29,10 +29,14 @@
             <h3 class="popup__title">Редактировать профиль</h3>
             <form name="form-edit" class="form form_type_edit" novalidate>
                 <fieldset class="form__fields">
-                    <input id="name-input" type="text" name="name" placeholder="Имя" class="form__field form__field_type_name" minlength="2" maxlength="40" required>
-                    <span class="form__field-error name-input-error"></span>
-                    <input id="about-input" type="text" name="about" placeholder="О себе" class="form__field form__field_type_about" minlength="2" maxlength="200" required>
-                    <span class="form__field-error about-input-error"></span>
+                    <label class="form__input">
+                        <input id="name-input" type="text" name="name" placeholder="Имя" class="form__field form__field_type_name" minlength="2" maxlength="40" required>
+                        <span class="form__field-error name-input-error"></span>
+                    </label>
+                    <label class="form__input">
+                        <input id="about-input" type="text" name="about" placeholder="О себе" class="form__field form__field_type_about" minlength="2" maxlength="200" required>
+                        <span class="form__field-error about-input-error"></span>
+                    </label>
                     <button type='submit' class="form__submit-button" aria-label="Сохранить">Сохранить</button>
                 </fieldset>
             </form>
@@ -44,10 +48,14 @@
             <h3 class="popup__title">Новое место</h3>
             <form name="form-add" class="form form_type_add" novalidate>
                 <fieldset class="form__fields">
-                    <input id="title-input" type="text" name="title" placeholder="Название" class="form__field form__field_type_title" minlength="2" maxlength="30" required>
-                    <span class="form__field-error title-input-error"></span>
-                    <input id="url-input" type="url" name="link" placeholder="Ссылка на картинку" class="form__field form__field_type_link" required>
-                    <span class="form__field-error url-input-error"></span>
+                    <label class="form__input">
+                        <input id="title-input" type="text" name="title" placeholder="Название" class="form__field form__field_type_title" minlength="2" maxlength="30" required>
+                        <span class="form__field-error title-input-error"></span>
+                    </label>
+                    <label class="form__input">
+                        <input id="url-input" type="url" name="link" placeholder="Ссылка на картинку" class="form__field form__field_type_link" required>
+                        <span class="form__field-error url-input-error"></span>
+                    </label>
                     <button type='submit' class="form__submit-button" aria-label="Создать">Создать</button>
                 </fieldset>
             </form>

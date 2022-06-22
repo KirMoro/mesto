@@ -35,6 +35,7 @@
 @import url(../blocks/form/_type/form_type_edit.css);
 @import url(../blocks/form/_type/form_type_add.css);
 @import url(../blocks/form/__fields/form__fields.css);
+@import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__field/form__field.css);
 @import url(../blocks/form/__field/_type/form__field_type_name.css);
 @import url(../blocks/form/__field/_type/form__field_type_about.css);
