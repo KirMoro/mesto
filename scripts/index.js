@@ -64,7 +64,9 @@ function openPopup(popupElement) {
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupByKey);
-}
+
+    clearInputsError(popupElement)
+};
 
 function fillingInputs() {
     nameInput.value = nameProfile.textContent;
@@ -77,7 +79,11 @@ function formEditSubmitHandler (evt) {
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
 
-    closePopup(popupEditProfile);
+    if (nameProfile.value === '' || jobInput.value === '') {
+      formEditSubmitHandler(evt);
+      } else {
+          closePopup(popupEditProfile);                
+    }
 }
 
 function deleteCard(card) {
@@ -133,9 +139,9 @@ function addCardSubmit (evt) {
             renderCard(itemElement);
 
             closePopup(popupAddCard);
-            
+                    
             formAddCard.reset();
-            }
+        }
 }
 
 profileEditBtn.addEventListener('click', function () {

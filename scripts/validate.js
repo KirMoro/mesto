@@ -13,6 +13,16 @@ function showInputError(formElement, inputElement, errorMessage) {
     errorElement.textContent = '';
   };
   
+function clearInputsError(inputError) {
+    const inputErrorList = Array.from(inputError.querySelectorAll('.form__field-error_active, .form__field_type_error'));
+    
+    inputErrorList.forEach((inputElement) => {
+      inputElement.classList.remove('form__field_type_error');
+      inputElement.classList.remove('form__field-error_active');
+      inputElement.value = ""
+      });  
+}
+
   function checkInputValidity(formElement, inputElement) {
     if (!inputElement.validity.valid) {
       showInputError(formElement, inputElement, inputElement.validationMessage);
