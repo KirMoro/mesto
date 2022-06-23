@@ -13,8 +13,8 @@ function showInputError(formElement, inputElement, errorMessage) {
     errorElement.textContent = '';
   };
   
-function clearInputsError(inputError) {
-    const inputErrorList = Array.from(inputError.querySelectorAll('.form__field-error_active, .form__field_type_error'));
+function clearInputsError(popupElement) {
+    const inputErrorList = Array.from(popupElement.querySelectorAll('.form__field-error_active, .form__field_type_error'));
     
     inputErrorList.forEach((inputElement) => {
       inputElement.classList.remove('form__field_type_error');
@@ -40,7 +40,7 @@ function clearInputsError(inputError) {
   function toggleButtonState(inputList, buttonElement) {
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add('form__submit-button_disabled');
-    }  else {
+    } else {
       buttonElement.classList.remove('form__submit-button_disabled');
     }
   };
@@ -66,10 +66,10 @@ function clearInputsError(inputError) {
           evt.preventDefault();
         });
       
-      const fieldsetList = Array.from(formElement.querySelectorAll(obj.fieldsSelector));
-      
-      fieldsetList.forEach((fieldSet) => {
-        setEventListeners(fieldSet);
+        const fieldsetList = Array.from(formElement.querySelectorAll(obj.fieldsSelector));
+        
+        fieldsetList.forEach((fieldSet) => {
+            setEventListeners(fieldSet);
       });
       });
   }

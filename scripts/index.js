@@ -76,12 +76,12 @@ function fillingInputs() {
 function formEditSubmitHandler (evt) {
     evt.preventDefault();
     
-    nameProfile.textContent = nameInput.value;
-    jobProfile.textContent = jobInput.value;
-
-    if (nameProfile.value === '' || jobInput.value === '') {
-      formEditSubmitHandler(evt);
-      } else {
+    if (nameInput.value.length < 2 || jobInput.value.length < 2) {
+      clearInputsError(popupEditProfile)
+          } else {
+          nameProfile.textContent = nameInput.value;
+          jobProfile.textContent = jobInput.value;
+        
           closePopup(popupEditProfile);                
     }
 }
@@ -133,8 +133,9 @@ function addCardSubmit (evt) {
     itemElement.name = titleInput.value;
     itemElement.link = linkInput.value;
    
-    if (itemElement.name === '' || itemElement.link === '') {
+    if (itemElement.name < 2) {
         addCardSubmit;
+        clearInputsError(popupAddCard)
         } else {
             renderCard(itemElement);
 
