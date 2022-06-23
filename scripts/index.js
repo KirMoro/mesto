@@ -18,40 +18,15 @@ const popupCapture = document.querySelector('.popup__capture');
 const itemsContainer = document.querySelector('.elements');
 const itemTemplate = document.querySelector('#item-template').content;
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+
 
 function toggleLike(likeElement) {
     likeElement.classList.toggle('elements_like-button_active');
 }
  
 function closePopupByKey(evt) {
-  const popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
 }
@@ -120,8 +95,6 @@ function renderCard(initialElement) {
     itemsContainer.prepend(createCard(initialElement));
 }
 
-initialCards.forEach(renderCard);
-
 function addCardSubmit (evt) {
     evt.preventDefault();
 
@@ -162,7 +135,7 @@ popupCloseBtns.forEach(function (popupCloseBnt) {
 });
 
 popups.forEach(function (popup) {
-    popup.addEventListener('click', function (evt) {
+    popup.addEventListener('mousedown', function (evt) {
       if (evt.target === evt.currentTarget) {
         closePopup(popup);
       }
