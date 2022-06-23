@@ -18,8 +18,6 @@ const popupCapture = document.querySelector('.popup__capture');
 const itemsContainer = document.querySelector('.elements');
 const itemTemplate = document.querySelector('#item-template').content;
 
-
-
 function toggleLike(likeElement) {
     likeElement.classList.toggle('elements_like-button_active');
 }
@@ -49,14 +47,10 @@ function fillingInputs() {
 function formEditSubmitHandler (evt) {
     evt.preventDefault();
     
-    if (nameInput.value.length < 2 || jobInput.value.length < 2) {
-      clearInputsError(popupEditProfile)
-          } else {
-          nameProfile.textContent = nameInput.value;
-          jobProfile.textContent = jobInput.value;
+    nameProfile.textContent = nameInput.value;
+    jobProfile.textContent = jobInput.value;
         
-          closePopup(popupEditProfile);                
-    }
+    closePopup(popupEditProfile);                
 }
 
 function deleteCard(card) {
@@ -104,27 +98,24 @@ function addCardSubmit (evt) {
     itemElement.name = titleInput.value;
     itemElement.link = linkInput.value;
    
-    if (itemElement.name < 2) {
-        addCardSubmit;
-        clearInputsError(popupAddCard)
-        } else {
-            renderCard(itemElement);
+    renderCard(itemElement);
 
-            closePopup(popupAddCard);
-                    
-            formAddCard.reset();
-        }
+    closePopup(popupAddCard);
+            
+    formAddCard.reset();
+    
+    popupAddCard.querySelector('.form__submit-button').classList.add('form__submit-button_disabled');
 }
 
 profileEditBtn.addEventListener('click', function () {
-    clearInputsError(popupEditProfile);
+    clearInputsError(popupEditProfile, config);
     fillingInputs();
     openPopup(popupEditProfile);
 });
 
 cardAddBtn.addEventListener('click', function () {
     openPopup(popupAddCard);
-    clearInputsError(popupAddCard);
+    clearInputsError(popupAddCard, config);
 });
 
 popupCloseBtns.forEach(function (popupCloseBnt) {

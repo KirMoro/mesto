@@ -8,35 +8,37 @@ const config = {
     errorClass: 'form__field-error_active'
   };
 
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, config) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('form__field_type_error');
+    inputElement.classList.add(config.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('form__field-error_active');
+    errorElement.classList.add(config.errorClass);
   };
   
-  function hideInputError(formElement, inputElement) {
+  function hideInputError(formElement, inputElement, config) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__field_type_error');
-    errorElement.classList.remove('form__field-error_active');
+    inputElement.classList.remove(config.inputErrorClass);
+    errorElement.classList.remove(config.errorClass);
     errorElement.textContent = '';
   };
   
-function clearInputsError(popupElement) {
-    const inputErrorList = Array.from(popupElement.querySelectorAll('.form__field-error_active, .form__field_type_error'));
-    
+function clearInputsError(popupElement, config) {
+    const inputErrorList = Array.from(popupElement.querySelectorAll(config.inputList));
+    const buttonElement = popupElement.querySelector(config.buttonElement);
+
     inputErrorList.forEach((inputElement) => {
-      inputElement.classList.remove('form__field_type_error');
-      inputElement.classList.remove('form__field-error_active');
-      inputElement.value = ""
+        hideInputError(popupElement, inputElement, config);
+        inputElement.value = "";
+
+        toggleButtonState(inputErrorList, buttonElement, config);
       });  
 }
 
-  function checkInputValidity(formElement, inputElement) {
+  function checkInputValidity(formElement, inputElement, config) {
     if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage);
+      showInputError(formElement, inputElement, inputElement.validationMessage, config);
     } else {
-      hideInputError(formElement, inputElement);
+      hideInputError(formElement, inputElement, config);
     }
   };
   
@@ -46,24 +48,24 @@ function clearInputsError(popupElement) {
     })
   };
   
-  function toggleButtonState(inputList, buttonElement) {
-    if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add('form__submit-button_disabled');
+  function toggleButtonState(inputList, buttonElement, config) {
+    if (hasInvalidInput(inputList, config)) {
+      buttonElement.classList.add(config.inactiveButtonClass);
     } else {
-      buttonElement.classList.remove('form__submit-button_disabled');
+      buttonElement.classList.remove(config.inactiveButtonClass);
     }
   };
   
-  function setEventListeners(formElement) {
-    const inputList = Array.from(formElement.querySelectorAll('.form__field'));
-    const buttonElement = formElement.querySelector('.form__submit-button');
+  function setEventListeners(formElement, config) {
+    const inputList = Array.from(formElement.querySelectorAll(config.inputList));
+    const buttonElement = formElement.querySelector(config.buttonElement);
   
-    toggleButtonState(inputList, buttonElement);
+    toggleButtonState(inputList, buttonElement, config);
   
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
-        checkInputValidity(formElement, inputElement);
-        toggleButtonState(inputList, buttonElement);
+        checkInputValidity(formElement, inputElement, config);
+        toggleButtonState(inputList, buttonElement, config);
       });
     });
   };
@@ -78,9 +80,9 @@ function clearInputsError(popupElement) {
         const fieldsetList = Array.from(formElement.querySelectorAll(config.fieldsSelector));
         
         fieldsetList.forEach((fieldSet) => {
-            setEventListeners(fieldSet);
+            setEventListeners(fieldSet, config);
       });
       });
   }
   
-  enableValidation(config);
+enableValidation(config);
