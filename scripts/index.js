@@ -39,8 +39,6 @@ function openPopup(popupElement) {
 function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupByKey);
-
-    clearInputsError(popupElement)
 };
 
 function fillingInputs() {
@@ -119,12 +117,14 @@ function addCardSubmit (evt) {
 }
 
 profileEditBtn.addEventListener('click', function () {
+    clearInputsError(popupEditProfile);
     fillingInputs();
     openPopup(popupEditProfile);
 });
 
 cardAddBtn.addEventListener('click', function () {
     openPopup(popupAddCard);
+    clearInputsError(popupAddCard);
 });
 
 popupCloseBtns.forEach(function (popupCloseBnt) {

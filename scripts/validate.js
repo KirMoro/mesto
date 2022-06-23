@@ -1,4 +1,13 @@
-// VALIDATION
+const config = {
+    formSelector: '.form',
+    fieldsSelector: '.form__fields',
+    inputList: '.form__field',
+    buttonElement: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_disabled',
+    inputErrorClass: 'form__field_type_error',
+    errorClass: 'form__field-error_active'
+  };
+
 function showInputError(formElement, inputElement, errorMessage) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add('form__field_type_error');
@@ -59,14 +68,14 @@ function clearInputsError(popupElement) {
     });
   };
   
-  function enableValidation(obj) {
-    const formList = Array.from(document.querySelectorAll(obj.formSelector));
+  function enableValidation(config) {
+    const formList = Array.from(document.querySelectorAll(config.formSelector));
       formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
           evt.preventDefault();
         });
       
-        const fieldsetList = Array.from(formElement.querySelectorAll(obj.fieldsSelector));
+        const fieldsetList = Array.from(formElement.querySelectorAll(config.fieldsSelector));
         
         fieldsetList.forEach((fieldSet) => {
             setEventListeners(fieldSet);
@@ -74,12 +83,4 @@ function clearInputsError(popupElement) {
       });
   }
   
-  enableValidation({
-    formSelector: '.form',
-    fieldsSelector: '.form__fields',
-    inputList: '.form__field',
-    buttonElement: '.form__submit-button',
-    inactiveButtonClass: 'form__submit-button_disabled',
-    inputErrorClass: 'form__field_type_error',
-    errorClass: 'form__field-error_active'
-  });
+  enableValidation(config);
