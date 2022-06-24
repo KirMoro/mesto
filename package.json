@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Учебный проект четвертого спринта в курсе Яндекс.Практикум «Веб-разработчик» — приложение «Место»",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KirMoro/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KirMoro/mesto/issues"
+  },
+  "homepage": "https://github.com/KirMoro/mesto#readme",
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "stylelint": "^14.9.1"
+  }
+}
