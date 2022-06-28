@@ -31,9 +31,7 @@ function checkInputValidity(formElement, inputElement, config) {
 }
 
 function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
+  return inputList.some((inputElement) => !inputElement.validity.valid);
 }
 
 function toggleButtonState(inputList, buttonElement, config) {
@@ -65,7 +63,7 @@ function setEventListeners(formElement, config) {
   toggleButtonState(inputList, buttonElement, config);
 
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
+    inputElement.addEventListener('input', () => {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement, config);
     });
@@ -75,7 +73,7 @@ function setEventListeners(formElement, config) {
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
+    formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
 
