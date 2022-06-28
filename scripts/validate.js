@@ -8,25 +8,25 @@ const config = {
   errorClass: 'form__field-error_active',
 };
 
-function showInputError(formElement, inputElement, errorMessage, config) {
+function showInputError(formElement, inputElement, errorMessage, settings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(config.inputErrorClass);
+  inputElement.classList.add(settings.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(config.errorClass);
+  errorElement.classList.add(settings.errorClass);
 }
 
-function hideInputError(formElement, inputElement, config) {
+function hideInputError(formElement, inputElement, settings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(config.inputErrorClass);
-  errorElement.classList.remove(config.errorClass);
+  inputElement.classList.remove(settings.inputErrorClass);
+  errorElement.classList.remove(settings.errorClass);
   errorElement.textContent = '';
 }
 
-function checkInputValidity(formElement, inputElement, config) {
+function checkInputValidity(formElement, inputElement, settings) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, config);
+    showInputError(formElement, inputElement, inputElement.validationMessage, settings);
   } else {
-    hideInputError(formElement, inputElement, config);
+    hideInputError(formElement, inputElement, settings);
   }
 }
 
@@ -34,53 +34,53 @@ function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => !inputElement.validity.valid);
 }
 
-function toggleButtonState(inputList, buttonElement, config) {
-  if (hasInvalidInput(inputList, config)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
+function toggleButtonState(inputList, buttonElement, settings) {
+  if (hasInvalidInput(inputList, settings)) {
+    buttonElement.classList.add(settings.inactiveButtonClass);
     buttonElement.setAttribute('disabled', true);
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.remove(settings.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
   }
 }
 
-function clearInputsError(popupElement, config) {
-  const inputErrorList = Array.from(popupElement.querySelectorAll(config.inputList));
-  const buttonElement = popupElement.querySelector(config.buttonElement);
+function clearInputsError(popupElement, settings) {
+  const inputErrorList = Array.from(popupElement.querySelectorAll(settings.inputList));
+  const buttonElement = popupElement.querySelector(settings.buttonElement);
 
   inputErrorList.forEach((inputElement) => {
-    hideInputError(popupElement, inputElement, config);
+    hideInputError(popupElement, inputElement, settings);
     inputElement.value = '';
 
-    toggleButtonState(inputErrorList, buttonElement, config);
+    toggleButtonState(inputErrorList, buttonElement, settings);
   });
 }
 
-function setEventListeners(formElement, config) {
-  const inputList = Array.from(formElement.querySelectorAll(config.inputList));
-  const buttonElement = formElement.querySelector(config.buttonElement);
+function setEventListeners(formElement, settings) {
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputList));
+  const buttonElement = formElement.querySelector(settings.buttonElement);
 
-  toggleButtonState(inputList, buttonElement, config);
+  toggleButtonState(inputList, buttonElement, settings);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      checkInputValidity(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
+      checkInputValidity(formElement, inputElement, settings);
+      toggleButtonState(inputList, buttonElement, settings);
     });
   });
 }
 
-function enableValidation(config) {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
+function enableValidation(settings) {
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
 
-    const fieldsetList = Array.from(formElement.querySelectorAll(config.fieldsSelector));
+    const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldsSelector));
 
     fieldsetList.forEach((fieldSet) => {
-      setEventListeners(fieldSet, config);
+      setEventListeners(fieldSet, settings);
     });
   });
 }
