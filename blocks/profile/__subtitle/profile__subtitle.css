@@ -1,14 +1,14 @@
 .profile__subtitle {
+  overflow: hidden;
   max-width: 300px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  grid-area: subtitle;
-  margin: 0 0 0 30px;
   align-self: start;
+  margin: 0 0 0 30px;
+  font-size: 18px;
+  font-weight: 400;
+  grid-area: subtitle;
+  line-height: 22px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 @media screen and (max-width: 977px) {
@@ -19,8 +19,8 @@
 
 @media screen and (max-width: 767px) {
   .profile__subtitle {
+    margin: 6px 0 33px;
     font-size: 14px;
     line-height: 17px;
-    margin: 6px 0 33px 0;
   }
 }

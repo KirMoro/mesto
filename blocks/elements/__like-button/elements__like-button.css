@@ -1,17 +1,17 @@
 .elements__like-button {
+  position: absolute;
+  top: 30px;
+  right: 20px;
   width: 22px;
   height: 19px;
   border: none;
   background-color: white;
-  background-image: url(../../../images/elements_like-btn.svg);
+  background-image: url('../../../images/elements_like-btn.svg');
   cursor: pointer;
-  position: absolute;
-  top: 30px;
-  right: 20px;
   outline: none;
-  transition: opacity 0.5s;
+  transition: opacity .5s;
 }
 
 .elements__like-button:hover {
-  opacity: 0.5;
+  opacity: .5;
 }

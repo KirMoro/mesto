@@ -1,7 +1,7 @@
 .popup__capture {
-  font-weight: 400;
+  padding: 10px 0 0;
+  color: #fff;
   font-size: 12px;
+  font-weight: 400;
   line-height: 15px;
-  color: #FFFFFF;
-  padding: 10px 0 0 0;
 }

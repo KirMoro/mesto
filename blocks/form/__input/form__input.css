@@ -1,9 +1,9 @@
 .form__input {
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: relative;
-  margin: 0 0 30px 0;
-  padding: 0 0 7px 0;
+  padding: 0 0 7px;
+  margin: 0 0 30px;
 }
 
 .form__input:nth-last-of-type(1) {
@@ -12,6 +12,6 @@
 
 @media screen and (max-width: 767px) {
   .form__input {
-    padding: 0 0 9px 0;
+    padding: 0 0 9px;
   }
 }
