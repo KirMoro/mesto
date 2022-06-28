@@ -22,18 +22,6 @@ function hideInputError(formElement, inputElement, config) {
   errorElement.textContent = '';
 }
 
-function clearInputsError(popupElement, config) {
-  const inputErrorList = Array.from(popupElement.querySelectorAll(config.inputList));
-  const buttonElement = popupElement.querySelector(config.buttonElement);
-
-  inputErrorList.forEach((inputElement) => {
-    hideInputError(popupElement, inputElement, config);
-    inputElement.value = '';
-
-    toggleButtonState(inputErrorList, buttonElement, config);
-  });
-}
-
 function checkInputValidity(formElement, inputElement, config) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, config);
@@ -56,6 +44,18 @@ function toggleButtonState(inputList, buttonElement, config) {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
   }
+}
+
+function clearInputsError(popupElement, config) {
+  const inputErrorList = Array.from(popupElement.querySelectorAll(config.inputList));
+  const buttonElement = popupElement.querySelector(config.buttonElement);
+
+  inputErrorList.forEach((inputElement) => {
+    hideInputError(popupElement, inputElement, config);
+    inputElement.value = '';
+
+    toggleButtonState(inputErrorList, buttonElement, config);
+  });
 }
 
 function setEventListeners(formElement, config) {
