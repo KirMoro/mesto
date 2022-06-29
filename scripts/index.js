@@ -18,6 +18,18 @@ const popupCapture = document.querySelector('.popup__capture');
 const itemsContainer = document.querySelector('.elements');
 const itemTemplate = document.querySelector('#item-template').content;
 
+function clearInputsError(popupElement, settings) {
+  const inputErrorList = Array.from(popupElement.querySelectorAll(settings.inputList));
+  const buttonElement = popupElement.querySelector(settings.buttonElement);
+
+  inputErrorList.forEach((inputElement) => {
+    hideInputError(popupElement, inputElement, settings);
+    inputElement.value = '';
+
+    toggleButtonState(inputErrorList, buttonElement, settings);
+  });
+}
+
 function toggleLike(likeElement) {
   likeElement.classList.toggle('elements_like-button_active');
 }

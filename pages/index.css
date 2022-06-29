@@ -21,9 +21,6 @@
 @import '../blocks/footer/__copyright/footer__copyright.css';
 @import '../blocks/popup/popup.css';
 @import '../blocks/popup/_opened/popup_opened.css';
-@import '../blocks/popup/_type/popup_type_edit.css';
-@import '../blocks/popup/_type/popup_type_add.css';
-@import '../blocks/popup/_type/popup_type_image.css';
 @import '../blocks/popup/_color/popup_color_black.css';
 @import '../blocks/popup/__gallery/popup__gallery.css';
 @import '../blocks/popup/__image/popup__image.css';
@@ -32,15 +29,9 @@
 @import '../blocks/popup/__container/popup__container.css';
 @import '../blocks/popup/__close-button/popup__close-button.css';
 @import '../blocks/form/form.css';
-@import '../blocks/form/_type/form_type_edit.css';
-@import '../blocks/form/_type/form_type_add.css';
 @import '../blocks/form/__fields/form__fields.css';
 @import '../blocks/form/__input/form__input.css';
 @import '../blocks/form/__field/form__field.css';
-@import '../blocks/form/__field/_type/form__field_type_name.css';
-@import '../blocks/form/__field/_type/form__field_type_about.css';
-@import '../blocks/form/__field/_type/form__field_type_title.css';
-@import '../blocks/form/__field/_type/form__field_type_link.css';
 @import '../blocks/form/__field/_type/form__field_type_error.css';
 @import '../blocks/form/__field-error/form__field-error.css';
 @import '../blocks/form/__field-error/_active/form__field-error_active.css';

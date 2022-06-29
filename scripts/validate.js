@@ -44,18 +44,6 @@ function toggleButtonState(inputList, buttonElement, settings) {
   }
 }
 
-function clearInputsError(popupElement, settings) {
-  const inputErrorList = Array.from(popupElement.querySelectorAll(settings.inputList));
-  const buttonElement = popupElement.querySelector(settings.buttonElement);
-
-  inputErrorList.forEach((inputElement) => {
-    hideInputError(popupElement, inputElement, settings);
-    inputElement.value = '';
-
-    toggleButtonState(inputErrorList, buttonElement, settings);
-  });
-}
-
 function setEventListeners(formElement, settings) {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputList));
   const buttonElement = formElement.querySelector(settings.buttonElement);
