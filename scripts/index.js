@@ -30,10 +30,6 @@ function clearInputsError(popupElement, settings) {
   });
 }
 
-function toggleLike(likeElement) {
-  likeElement.classList.toggle('elements_like-button_active');
-}
-
 function closePopupByKey(evt) {
   if (evt.key === 'Escape') {
     const popup = document.querySelector('.popup_opened');
@@ -69,31 +65,31 @@ function deleteCard(card) {
   card.remove();
 }
 
-function createCard(element) {
-  const initialElement = itemTemplate.querySelector('.elements__item').cloneNode(true);
-  const initialElementImage = initialElement.querySelector('.elements__image');
-  initialElement.querySelector('.elements__title').textContent = element.name;
-  initialElementImage.src = element.link;
-  initialElementImage.alt = element.name;
+// function createCard(element) {
+//   const initialElement = itemTemplate.querySelector('.elements__item').cloneNode(true);
+//   const initialElementImage = initialElement.querySelector('.elements__image');
+//   initialElement.querySelector('.elements__title').textContent = element.name;
+//   initialElementImage.src = element.link;
+//   initialElementImage.alt = element.name;
 
-  const likeElement = initialElement.querySelector('.elements__like-button');
-  likeElement.addEventListener('click', () => {
-    toggleLike(likeElement);
-  });
+//   const likeElement = initialElement.querySelector('.elements__like-button');
+//   likeElement.addEventListener('click', () => {
+//     toggleLike(likeElement);
+//   });
 
-  initialElement.querySelector('.elements__trash-button').addEventListener('click', () => {
-    deleteCard(initialElement);
-  });
+//   initialElement.querySelector('.elements__trash-button').addEventListener('click', () => {
+//     deleteCard(initialElement);
+//   });
 
-  initialElementImage.addEventListener('click', () => {
-    popupImageCard.src = element.link;
-    popupImageCard.alt = element.name;
-    popupCapture.textContent = element.name;
-    openPopup(popupImagePreview);
-  });
+//   initialElementImage.addEventListener('click', () => {
+//     popupImageCard.src = element.link;
+//     popupImageCard.alt = element.name;
+//     popupCapture.textContent = element.name;
+//     openPopup(popupImagePreview);
+//   });
 
-  return initialElement;
-}
+//   return initialElement;
+// }
 
 function renderCard(initialElement) {
   itemsContainer.prepend(createCard(initialElement));
@@ -148,3 +144,80 @@ popups.forEach((popup) => {
 formEditProfile.addEventListener('submit', formEditSubmitHandler);
 
 formAddCard.addEventListener('submit', addCardSubmit);
+
+
+class Card {
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._alt = data.name;
+    this._cardSelector = cardSelector;
+  }
+
+  _getElement() {
+  	const cardElement = document
+      .querySelector(this._cardSelector)
+      .content
+      .querySelector('.elements__item') // look about this
+      .cloneNode(true);
+
+    this._element = cardElement;
+  }
+
+  _toggleLike(likeElement) {
+    likeElement.classList.toggle('elements_like-button_active');
+  }
+
+  _setEventListeners() {
+    const likeElement = this._element.querySelector('.elements__like-button');
+    likeElement.addEventListener('click', () => {
+      this._toggleLike(likeElement);
+  });
+}
+
+  generateCard() {
+    this._getElement();
+    this._setEventListeners();
+    const initialElementImage = this._element.querySelector('.elements__image');
+
+    this._element.querySelector('.elements__title').textContent = this._name;
+    initialElementImage.src = this._link;
+    initialElementImage.alt = this._name;
+
+  	return this._element;
+  }
+
+  // const initialElement = itemTemplate.querySelector('.elements__item').cloneNode(true);
+  // const initialElementImage = initialElement.querySelector('.elements__image');
+  // initialElement.querySelector('.elements__title').textContent = element.name;
+  // initialElementImage.src = element.link;
+  // initialElementImage.alt = element.name;
+
+  // const likeElement = initialElement.querySelector('.elements__like-button');
+  // likeElement.addEventListener('click', () => {
+  //   toggleLike(likeElement);
+  // });
+
+  // initialElement.querySelector('.elements__trash-button').addEventListener('click', () => {
+  //   deleteCard(initialElement);
+  // });
+
+  // initialElementImage.addEventListener('click', () => {
+  //   popupImageCard.src = element.link;
+  //   popupImageCard.alt = element.name;
+  //   popupCapture.textContent = element.name;
+  //   openPopup(popupImagePreview);
+  // });
+
+  // return initialElement;
+
+  // разметка
+
+  // устанавливает слушатель
+
+  // метод для каждого обработчика
+
+  // публичный метод для возврата готовой карточки
+
+}
+

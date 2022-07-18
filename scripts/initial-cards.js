@@ -25,4 +25,15 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach(renderCard);
+// initialCards.forEach(renderCard);
+
+// initialCards.forEach(renderCard);
+
+
+initialCards.forEach((item) => {
+  const card = new Card (item, '#item-template');
+  const cardElement = card.generateCard();
+
+  // Добавляем в DOM
+  itemsContainer.prepend(cardElement);
+});
