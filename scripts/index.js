@@ -61,9 +61,9 @@ function formEditSubmitHandler(evt) {
   closePopup(popupEditProfile);
 }
 
-function deleteCard(card) {
-  card.remove();
-}
+// function deleteCard(card) {
+//   card.remove();
+// }
 
 // function createCard(element) {
 //   const initialElement = itemTemplate.querySelector('.elements__item').cloneNode(true);
@@ -158,7 +158,7 @@ class Card {
   	const cardElement = document
       .querySelector(this._cardSelector)
       .content
-      .querySelector('.elements__item') // look about this
+      .querySelector('.elements__item')
       .cloneNode(true);
 
     this._element = cardElement;
@@ -168,10 +168,25 @@ class Card {
     likeElement.classList.toggle('elements_like-button_active');
   }
 
+  _deleteCard(cardElement) {
+    cardElement.remove();
+  }
+
   _setEventListeners() {
     const likeElement = this._element.querySelector('.elements__like-button');
     likeElement.addEventListener('click', () => {
       this._toggleLike(likeElement);
+  });
+
+    this._element.querySelector('.elements__trash-button').addEventListener('click', () => {
+      this._deleteCard(this._element);
+  });
+
+    this._element.querySelector('.elements__image').addEventListener('click', () => {
+      popupImageCard.src = this._link;
+      popupImageCard.alt = this._name;
+      popupCapture.textContent = this._name;
+      openPopup(popupImagePreview);
   });
 }
 
@@ -186,38 +201,5 @@ class Card {
 
   	return this._element;
   }
-
-  // const initialElement = itemTemplate.querySelector('.elements__item').cloneNode(true);
-  // const initialElementImage = initialElement.querySelector('.elements__image');
-  // initialElement.querySelector('.elements__title').textContent = element.name;
-  // initialElementImage.src = element.link;
-  // initialElementImage.alt = element.name;
-
-  // const likeElement = initialElement.querySelector('.elements__like-button');
-  // likeElement.addEventListener('click', () => {
-  //   toggleLike(likeElement);
-  // });
-
-  // initialElement.querySelector('.elements__trash-button').addEventListener('click', () => {
-  //   deleteCard(initialElement);
-  // });
-
-  // initialElementImage.addEventListener('click', () => {
-  //   popupImageCard.src = element.link;
-  //   popupImageCard.alt = element.name;
-  //   popupCapture.textContent = element.name;
-  //   openPopup(popupImagePreview);
-  // });
-
-  // return initialElement;
-
-  // разметка
-
-  // устанавливает слушатель
-
-  // метод для каждого обработчика
-
-  // публичный метод для возврата готовой карточки
-
 }
 
