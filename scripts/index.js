@@ -33,11 +33,18 @@ const config = {
   errorClass: 'form__field-error_active',
 };
 
-initialCards.forEach((item) => {
-  const card = new Card (item, '#item-template', openImagePopup);
+function createCard(cardItem, cardSelector, handleClickImage) {
+  const card = new Card (cardItem, cardSelector, handleClickImage);
   const cardElement = card.generateCard();
+  return cardElement;
+}
 
-  renderCard(cardElement);
+function renderCard(cardItem) {
+  itemsContainer.prepend(cardItem);
+}
+
+initialCards.forEach((item) => {
+  renderCard(createCard(item, '#item-template', openImagePopup));
 });
 
 const validatEditProfileForm = new FormValidator (config, '.form_type_edit');
@@ -84,10 +91,6 @@ function openImagePopup(link, name) {
   openPopup(popupImagePreview);
 }
 
-function renderCard(cardItem) {
-  itemsContainer.prepend(cardItem);
-}
-
 function addCardSubmit(evt) {
   evt.preventDefault();
 
@@ -99,10 +102,7 @@ function addCardSubmit(evt) {
   itemElement.name = titleInput.value;
   itemElement.link = linkInput.value;
 
-  const card = new Card (itemElement, '#item-template', openImagePopup);
-  const cardElement = card.generateCard();
-
-  renderCard(cardElement);
+  renderCard(createCard(itemElement, '#item-template', openImagePopup));
 
   closePopup(popupAddCard);
 
