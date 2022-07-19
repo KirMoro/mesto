@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -24,10 +24,3 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   },
 ];
-
-initialCards.forEach((item) => {
-  const card = new Card (item, '#item-template');
-  const cardElement = card.generateCard();
-
-  renderCard(cardElement);
-});
