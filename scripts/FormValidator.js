@@ -73,17 +73,34 @@ export class FormValidator {
   }
 
   enableValidation(settings) {
-    const formList = Array.from(document.querySelectorAll(this._formSelector));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', (evt) => {
+      const formItem = document.querySelector(this._formElement);
+      formItem.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
 
-      const fieldsetList = Array.from(formElement.querySelectorAll(this._fieldsSelector));
+      const fieldsetList = Array.from(formItem.querySelectorAll(this._fieldsSelector));
 
       fieldsetList.forEach((fieldSet) => {
         this._setEventListeners(fieldSet);
       });
-    });
-  }
+    };
+
+
+  // enableValidation(settings) {
+  //   const formList = Array.from(document.querySelectorAll(this._formSelector));
+  //   formList.forEach((formElement) => {
+  //     formElement.addEventListener('submit', (evt) => {
+  //       evt.preventDefault();
+  //     });
+
+  //     const fieldsetList = Array.from(formElement.querySelectorAll(this._fieldsSelector));
+
+  //     fieldsetList.forEach((fieldSet) => {
+  //       this._setEventListeners(fieldSet);
+  //     });
+  //   });
+  // }
+
 }
+
+
