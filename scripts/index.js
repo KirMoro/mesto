@@ -20,11 +20,8 @@ const linkInput = document.querySelector('.form__field_type_link');
 const popupImageCard = document.querySelector('.popup__image');
 const popupCapture = document.querySelector('.popup__capture');
 const itemsContainer = document.querySelector('.elements');
-const itemTemplate = document.querySelector('#item-template').content;
-const formList = Array.from(document.querySelectorAll('.form'));
 
 const config = {
-  formSelector: '.form',
   fieldsSelector: '.form__fields',
   inputList: '.form__field',
   buttonElement: '.form__submit-button',
@@ -107,19 +104,19 @@ function addCardSubmit(evt) {
   closePopup(popupAddCard);
 
   formAddCard.reset();
-
-  popupAddCard.querySelector('.form__submit-button').classList.add('form__submit-button_disabled');
 }
 
 profileEditBtn.addEventListener('click', () => {
-  validatEditProfileForm.clearInputsError(popupEditProfile);
+  validatEditProfileForm.clearInputsError();
   fillingInputs();
+  popupEditProfile.querySelector('.form__submit-button').classList.remove('form__submit-button_disabled');
+
   openPopup(popupEditProfile);
 });
 
 cardAddBtn.addEventListener('click', () => {
   openPopup(popupAddCard);
-  validateAddCardForm.clearInputsError(popupAddCard);
+  validateAddCardForm.clearInputsError();
 });
 
 popupCloseBtns.forEach((popupCloseBnt) => {
@@ -140,4 +137,3 @@ popups.forEach((popup) => {
 formEditProfile.addEventListener('submit', formEditSubmitHandler);
 
 formAddCard.addEventListener('submit', addCardSubmit);
-
