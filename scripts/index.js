@@ -110,6 +110,7 @@ profileEditBtn.addEventListener('click', () => {
   validatEditProfileForm.clearInputsError();
   fillingInputs();
   popupEditProfile.querySelector('.form__submit-button').classList.remove('form__submit-button_disabled');
+  popupEditProfile.querySelector('.form__submit-button').removeAttribute('disabled');
 
   openPopup(popupEditProfile);
 });
