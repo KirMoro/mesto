@@ -8,7 +8,7 @@ export class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._submitButton = this._formElement.querySelector(this._buttonElement);
   }
 
@@ -67,12 +67,12 @@ export class FormValidator {
   }
 
   enableValidation(settings) {
-      this._formElement.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-      });
+    this._formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
 
-      this._fieldsetList.forEach((fieldSet) => {
-        this._setEventListeners(fieldSet);
-      });
-    };
+    this._fieldsetList.forEach((fieldSet) => {
+      this._setEventListeners(fieldSet);
+    });
+  }
 }

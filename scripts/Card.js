@@ -8,7 +8,7 @@ export class Card {
   }
 
   _getElement() {
-  	const cardElement = document
+    const cardElement = document
       .querySelector(this._cardSelector)
       .content
       .querySelector('.elements__item')
@@ -29,16 +29,16 @@ export class Card {
     const likeElement = this._element.querySelector('.elements__like-button');
     likeElement.addEventListener('click', () => {
       this._toggleLike(likeElement);
-  });
+    });
 
     this._element.querySelector('.elements__trash-button').addEventListener('click', () => {
       this._deleteCard();
-  });
+    });
 
     this._element.querySelector('.elements__image').addEventListener('click', () => {
       this._handleClickImage(this._link, this._name);
-  });
-}
+    });
+  }
 
   generateCard() {
     this._getElement();
@@ -49,6 +49,6 @@ export class Card {
     initialElementImage.src = this._link;
     initialElementImage.alt = this._name;
 
-  	return this._element;
+    return this._element;
   }
 }
