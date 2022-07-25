@@ -1,6 +1,6 @@
-import { Card } from './Card.js';
+import Card from './Card.js';
 import { initialCards } from './initial-cards.js';
-import { FormValidator } from './FormValidator.js';
+import FormValidator from './FormValidator.js';
 
 const popups = document.querySelectorAll('.popup');
 const profileEditBtn = document.querySelector('.profile__edit-button');
@@ -31,7 +31,7 @@ const config = {
 };
 
 function createCard(cardItem, cardSelector, handleClickImage) {
-  const card = new Card (cardItem, cardSelector, handleClickImage);
+  const card = new Card(cardItem, cardSelector, handleClickImage);
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -40,14 +40,16 @@ function renderCard(cardItem) {
   itemsContainer.prepend(cardItem);
 }
 
-initialCards.forEach((item) => {
-  renderCard(createCard(item, '#item-template', openImagePopup));
-});
+// initialCards.forEach((item) => {
+//   console.log(item)
+//   renderCard(createCard(item, '#item-template', openImagePopup));
+// });
+// console.log(initialCards)
 
-const validatEditProfileForm = new FormValidator (config, '.form_type_edit');
+const validatEditProfileForm = new FormValidator(config, '.form_type_edit');
 validatEditProfileForm.enableValidation();
 
-const validateAddCardForm = new FormValidator (config, '.form_type_add');
+const validateAddCardForm = new FormValidator(config, '.form_type_add');
 validateAddCardForm.enableValidation();
 
 function closePopupByKey(evt) {
@@ -138,3 +140,41 @@ popups.forEach((popup) => {
 formEditProfile.addEventListener('submit', formEditSubmitHandler);
 
 formAddCard.addEventListener('submit', addCardSubmit);
+
+
+class Section {
+  constructor({ items, renderer }, containerSelector) {
+    this._itemsArray = (items);
+    this._renderer = renderer;
+    this._container = document.querySelector(containerSelector);
+  }
+
+  addItem(cardElement) {
+    this._container.prepend(cardElement);
+  }
+
+  renderItems() {
+    this._itemsArray.forEach((item) => {
+      this._renderer(item);
+      // this.addItem(item);
+    });
+  }
+
+
+  //   Первым параметром конструктора принимает объект с двумя свойствами: items и renderer. Свойство items — это массив данных, которые нужно добавить на страницу при инициализации класса. Свойство renderer — это функция, которая отвечает за создание и отрисовку данных на странице.
+  // Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
+  // Содержит публичный метод, который отвечает за отрисовку всех элементов. Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
+  // Содержит публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер.
+  // У класса Section нет своей разметки. Он получает разметку через функцию-колбэк и вставляет её в контейнер.
+
+}
+
+const initialCardsItems = new Section({
+  items: initialCards, renderer: (item) => {
+    const card = new Card(item, '#item-template', openImagePopup);
+    const cardElement = card.generateCard();
+    initialCardsItems.addItem(cardElement);
+  }
+}, '.elements');
+
+initialCardsItems.renderItems()

@@ -1,4 +1,4 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(settings, formElement) {
     this._formElement = document.querySelector(formElement);
     this._fieldsSelector = settings.fieldsSelector;
@@ -66,7 +66,7 @@ export class FormValidator {
     });
   }
 
-  enableValidation(settings) {
+  enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
