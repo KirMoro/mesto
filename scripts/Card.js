@@ -1,10 +1,10 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleClickImage) {
+  constructor({ name, link }, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._alt = name;
     this._cardSelector = cardSelector;
-    this._handleClickImage = handleClickImage;
+    this._handleCardClick = handleCardClick;
   }
 
   _getElement() {
@@ -36,7 +36,7 @@ export default class Card {
     });
 
     this._element.querySelector('.elements__image').addEventListener('click', () => {
-      this._handleClickImage(this._link, this._name);
+      this._handleCardClick(this._link, this._name);
     });
   }
 

@@ -17,9 +17,9 @@ const nameProfile = document.querySelector('.profile__title');
 const jobProfile = document.querySelector('.profile__subtitle');
 const titleInput = document.querySelector('.form__field_type_title');
 const linkInput = document.querySelector('.form__field_type_link');
-const popupImageCard = document.querySelector('.popup__image');
-const popupCapture = document.querySelector('.popup__capture');
-const itemsContainer = document.querySelector('.elements');
+// const popupImageCard = document.querySelector('.popup__image');
+// const popupCapture = document.querySelector('.popup__capture');
+// const itemsContainer = document.querySelector('.elements');
 
 const config = {
   fieldsSelector: '.form__fields',
@@ -36,9 +36,9 @@ function createCard(cardItem, cardSelector, handleClickImage) {
   return cardElement;
 }
 
-function renderCard(cardItem) {
-  itemsContainer.prepend(cardItem);
-}
+// function renderCard(cardItem) {
+//   itemsContainer.prepend(cardItem);
+// }
 
 // initialCards.forEach((item) => {
 //   console.log(item)
@@ -83,12 +83,13 @@ function formEditSubmitHandler(evt) {
   closePopup(popupEditProfile);
 }
 
-function openImagePopup(link, name) {
-  popupImageCard.src = link;
-  popupImageCard.alt = name;
-  popupCapture.textContent = name;
-  openPopup(popupImagePreview);
-}
+
+// function openImagePopup(link, name) {
+//   popupImageCard.src = link;
+//   popupImageCard.alt = name;
+//   popupCapture.textContent = name;
+//   openPopup(popupImagePreview);
+// }
 
 function addCardSubmit(evt) {
   evt.preventDefault();
@@ -142,6 +143,11 @@ formEditProfile.addEventListener('submit', formEditSubmitHandler);
 formAddCard.addEventListener('submit', addCardSubmit);
 
 
+const handleCardClick = (link, name) => {
+  const imagePreview = new PopupWithImage('.popup_type_image');
+  imagePreview.open(link, name);
+}
+
 class Section {
   constructor({ items, renderer }, containerSelector) {
     this._itemsArray = (items);
@@ -156,25 +162,101 @@ class Section {
   renderItems() {
     this._itemsArray.forEach((item) => {
       this._renderer(item);
-      // this.addItem(item);
     });
   }
-
-
-  //   Первым параметром конструктора принимает объект с двумя свойствами: items и renderer. Свойство items — это массив данных, которые нужно добавить на страницу при инициализации класса. Свойство renderer — это функция, которая отвечает за создание и отрисовку данных на странице.
-  // Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
-  // Содержит публичный метод, который отвечает за отрисовку всех элементов. Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
-  // Содержит публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер.
-  // У класса Section нет своей разметки. Он получает разметку через функцию-колбэк и вставляет её в контейнер.
-
 }
 
-const initialCardsItems = new Section({
+const initialCardItems = new Section({
   items: initialCards, renderer: (item) => {
-    const card = new Card(item, '#item-template', openImagePopup);
+    const card = new Card(item, '#item-template', handleCardClick);
     const cardElement = card.generateCard();
-    initialCardsItems.addItem(cardElement);
+    initialCardItems.addItem(cardElement);
   }
 }, '.elements');
 
-initialCardsItems.renderItems()
+initialCardItems.renderItems()
+
+class Popup {
+  constructor(popupSelector) {
+    this._popupSelector = document.querySelector(popupSelector);
+  }
+
+  _handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      // const popup = document.querySelector('.popup_opened');
+      this.close();
+    }
+  }
+
+  setEventListeners() {
+    document.addEventListener('keydown', this._handleEscClose);
+
+    this._popupSelector.addEventListener('mousedown', (evt) => {
+      if (evt.target === evt.currentTarget) {
+        this.close();
+      }
+    });
+
+    const closeBnt = this._popupSelector.querySelector('.popup__close-button')
+    closeBnt.addEventListener('click', () => {
+      // const popupClosest = popupCloseBnt.closest('.popup');
+      this.close();
+    });
+  }
+
+  open() {
+    this.setEventListeners();
+    this._popupSelector.classList.add('popup_opened');
+  }
+
+  close() {
+    this._popupSelector.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._handleEscClose);
+  }
+}
+
+class PopupWithImage extends Popup {
+
+  open(link, name) {
+    super.setEventListeners();
+    const popupImageCard = this._popupSelector.querySelector('.popup__image');
+    const popupCapture = this._popupSelector.querySelector('.popup__capture');
+    popupImageCard.src = link;
+    popupImageCard.alt = name;
+    popupCapture.textContent = name;
+    this._popupSelector.classList.add('popup_opened');
+  }
+}
+
+class PopupWithForm extends Popup {
+  constructor(popupSelector, formSubmitHandler) {
+    super(popupSelector);
+    this._formSubmitHandler = formSubmitHandler;
+  }
+
+  _getInputValues() {
+
+  }
+
+  setEventListeners() {
+
+  }
+
+  close() {
+
+  }
+}
+
+class UserInfo {
+  constructor({ profileNameSelector, profileAboutSelector }) {
+
+  }
+
+  getUserInfo() {
+
+  }
+
+  setUserInfo() {
+
+  }
+}
