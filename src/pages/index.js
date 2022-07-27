@@ -1,11 +1,11 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-
-import { initialCards } from './initial-cards.js';
+import './index.css';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import { initialCards } from '../utils/initial-cards.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
@@ -36,6 +36,9 @@ validatEditProfileForm.enableValidation();
 const validateAddCardForm = new FormValidator(config, '.form_type_add');
 validateAddCardForm.enableValidation();
 
+// Создание экземпляра класса UserInfo
+const newUser = new UserInfo(profileInfo);
+
 // попап с превью
 const handleCardClick = (link, name) => {
   const imagePreview = new PopupWithImage('.popup_type_image');
@@ -55,8 +58,7 @@ profileEditBtn.addEventListener('click', () => {
 });
 
 function fillingInputs() {
-  const oldUser = new UserInfo(profileInfo);
-  const userInfo = oldUser.getUserInfo();
+  const userInfo = newUser.getUserInfo();
 
   nameInput.value = userInfo.name;
   jobInput.value = userInfo.job;
@@ -70,7 +72,6 @@ const formEditSubmitHandler = (evt) => {
     job: jobInput.value,
   };
 
-  const newUser = new UserInfo(profileInfo);
   newUser.setUserInfo(newUserProfile);
 
   formEditProfilePopup.close();

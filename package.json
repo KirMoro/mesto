@@ -4,7 +4,8 @@
   "description": "Учебный проект четвертого спринта в курсе Яндекс.Практикум «Веб-разработчик» — приложение «Место»",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "dev": "webpack serve",
     "lint": "stylelint \"**/*.css\" ; npx eslint ."
   },
   "repository": {
