@@ -20,7 +20,7 @@ export default class Popup {
       }
     });
 
-    const closeBtn = this._popupSelector.querySelector('.popup__close-button')
+    const closeBtn = this._popupSelector.querySelector('.popup__close-button');
     closeBtn.addEventListener('click', () => {
       this.close();
     });

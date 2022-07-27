@@ -5,14 +5,11 @@ import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 
-
 import { initialCards } from './initial-cards.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
 const popupEditProfile = document.querySelector('.popup_type_edit');
-const popupAddCard = document.querySelector('.popup_type_add');
-const formAddCard = document.querySelector('.form_type_add');
 const nameInput = document.querySelector('.form__field_type_name');
 const jobInput = document.querySelector('.form__field_type_about');
 const titleInput = document.querySelector('.form__field_type_title');
@@ -32,23 +29,6 @@ const config = {
   errorClass: 'form__field-error_active',
 };
 
-function createCard(cardItem, cardSelector, handleClickImage) {
-  const card = new Card(cardItem, cardSelector, handleClickImage);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
-// Инициализация карточек при загрузке
-const initialCardItems = new Section({
-  items: initialCards, renderer: (item) => {
-    const card = new Card(item, '#item-template', handleCardClick);
-    const cardElement = card.generateCard();
-    initialCardItems.addItem(cardElement);
-  }
-}, '.elements');
-
-initialCardItems.renderItems();
-
 // Включение валидации
 const validatEditProfileForm = new FormValidator(config, '.form_type_edit');
 validatEditProfileForm.enableValidation();
@@ -60,7 +40,7 @@ validateAddCardForm.enableValidation();
 const handleCardClick = (link, name) => {
   const imagePreview = new PopupWithImage('.popup_type_image');
   imagePreview.open(link, name);
-}
+};
 
 // попап редактирования профиля
 profileEditBtn.addEventListener('click', () => {
@@ -94,7 +74,7 @@ const formEditSubmitHandler = (evt) => {
   newUser.setUserInfo(newUserProfile);
 
   formEditProfilePopup.close();
-}
+};
 
 // попап добавления новой картчоки
 cardAddBtn.addEventListener('click', () => {
@@ -116,17 +96,29 @@ const addCardSubmit = (evt) => {
   itemCard.link = linkInput.value;
 
   const initialItemElement = new Section({
-    items: itemElement, renderer: (itemCard) => {
-      const card = new Card(itemCard, '#item-template', handleCardClick);
+    items: itemElement, renderer: (item) => {
+      const card = new Card(item, '#item-template', handleCardClick);
       const cardElement = card.generateCard();
+
       initialCardItems.addItem(cardElement);
-    }
+    },
   }, '.elements');
 
-  initialItemElement.renderItems()
+  initialItemElement.renderItems();
 
   formAddCardPopup.close();
-}
+};
 
 const formEditProfilePopup = new PopupWithForm('.popup_type_edit', formEditSubmitHandler);
 const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
+
+// Инициализация карточек при загрузке
+const initialCardItems = new Section({
+  items: initialCards, renderer: (item) => {
+    const card = new Card(item, '#item-template', handleCardClick);
+    const cardElement = card.generateCard();
+    initialCardItems.addItem(cardElement);
+  },
+}, '.elements');
+
+initialCardItems.renderItems();

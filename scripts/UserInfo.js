@@ -8,9 +8,9 @@ export default class UserInfo {
     const userInfo = {
       name: this._profileNameSelector.textContent,
       job: this._profileAboutSelector.textContent,
-    }
+    };
 
-    return userInfo
+    return userInfo;
   }
 
   setUserInfo({ name, job }) {
