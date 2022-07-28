@@ -9,11 +9,8 @@ import { initialCards } from '../utils/initial-cards.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
-const popupEditProfile = document.querySelector('.popup_type_edit');
 const nameInput = document.querySelector('.form__field_type_name');
 const jobInput = document.querySelector('.form__field_type_about');
-const titleInput = document.querySelector('.form__field_type_title');
-const linkInput = document.querySelector('.form__field_type_link');
 
 const profileInfo = {
   profileNameSelector: '.profile__title',
@@ -39,22 +36,14 @@ validateAddCardForm.enableValidation();
 // Создание экземпляра класса UserInfo
 const newUser = new UserInfo(profileInfo);
 
-// попап с превью
-const handleCardClick = (link, name) => {
-  const imagePreview = new PopupWithImage('.popup_type_image');
-  imagePreview.open(link, name);
-};
-
 // попап редактирования профиля
 profileEditBtn.addEventListener('click', () => {
   formEditProfilePopup.open();
 
   validatEditProfileForm.clearInputsError();
+  validatEditProfileForm.enableSubmitBtn();
 
   fillingInputs();
-
-  popupEditProfile.querySelector('.form__submit-button').classList.remove('form__submit-button_disabled');
-  popupEditProfile.querySelector('.form__submit-button').removeAttribute('disabled');
 });
 
 function fillingInputs() {
@@ -64,15 +53,10 @@ function fillingInputs() {
   jobInput.value = userInfo.job;
 }
 
-const formEditSubmitHandler = (evt) => {
+const handleFormEditSubmit = (evt) => {
   evt.preventDefault();
 
-  const newUserProfile = {
-    name: nameInput.value,
-    job: jobInput.value,
-  };
-
-  newUser.setUserInfo(newUserProfile);
+  newUser.setUserInfo(formEditProfilePopup._getInputValues());
 
   formEditProfilePopup.close();
 };
@@ -86,40 +70,39 @@ cardAddBtn.addEventListener('click', () => {
 const addCardSubmit = (evt) => {
   evt.preventDefault();
 
-  const itemElement = [{
-    name: '',
-    link: '',
-  }];
-
-  const [itemCard] = itemElement;
-
-  itemCard.name = titleInput.value;
-  itemCard.link = linkInput.value;
-
-  const initialItemElement = new Section({
-    items: itemElement, renderer: (item) => {
-      const card = new Card(item, '#item-template', handleCardClick);
-      const cardElement = card.generateCard();
-
-      initialCardItems.addItem(cardElement);
-    },
-  }, '.elements');
-
-  initialItemElement.renderItems();
+  initialSection.addItem(createCard(formAddCardPopup._getInputValues(), '#item-template', handleCardClick));
 
   formAddCardPopup.close();
 };
 
-const formEditProfilePopup = new PopupWithForm('.popup_type_edit', formEditSubmitHandler);
-const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
+const handleCardClick = (link, name) => {
+  imagePreview.open(link, name);
+};
 
-// Инициализация карточек при загрузке
-const initialCardItems = new Section({
+// Создание экземпляров классов попапов
+const formEditProfilePopup = new PopupWithForm('.popup_type_edit', handleFormEditSubmit);
+formEditProfilePopup.setEventListeners();
+
+const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
+formAddCardPopup.setEventListeners();
+
+const imagePreview = new PopupWithImage('.popup_type_image');
+imagePreview.setEventListeners();
+
+// Создание карточки
+const createCard = (cardItem, cardSelector, handleClickImage) => {
+  const card = new Card(cardItem, cardSelector, handleClickImage);
+  const cardElement = card.generateCard();
+
+  return cardElement;
+};
+
+// Создание новой секции
+const initialSection = new Section({
   items: initialCards, renderer: (item) => {
-    const card = new Card(item, '#item-template', handleCardClick);
-    const cardElement = card.generateCard();
-    initialCardItems.addItem(cardElement);
+    initialSection.addItem(createCard(item, '#item-template', handleCardClick));
   },
 }, '.elements');
 
-initialCardItems.renderItems();
+// Загрузка карточек
+initialSection.renderItems();
