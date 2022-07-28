@@ -17,6 +17,7 @@ const profileInfo = {
   profileAboutSelector: '.profile__subtitle',
 };
 
+
 const config = {
   fieldsSelector: '.form__fields',
   inputList: '.form__field',
