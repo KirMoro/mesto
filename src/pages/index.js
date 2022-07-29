@@ -39,6 +39,7 @@ const newUser = new UserInfo(profileInfo);
 
 // попап редактирования профиля
 profileEditBtn.addEventListener('click', () => {
+  formEditProfilePopup.setEventListeners();
   formEditProfilePopup.open();
 
   validatEditProfileForm.clearInputsError();
@@ -54,41 +55,36 @@ function fillingInputs() {
   jobInput.value = userInfo.job;
 }
 
-const handleFormEditSubmit = (evt) => {
-  evt.preventDefault();
+const handleFormEditSubmit = (inputValues) => {
 
-  newUser.setUserInfo(formEditProfilePopup._getInputValues());
+  newUser.setUserInfo(inputValues);
 
   formEditProfilePopup.close();
 };
 
 // попап добавления новой картчоки
 cardAddBtn.addEventListener('click', () => {
+  formAddCardPopup.setEventListeners();
   formAddCardPopup.open();
   validateAddCardForm.clearInputsError();
 });
 
-const addCardSubmit = (evt) => {
-  evt.preventDefault();
-
-  initialSection.addItem(createCard(formAddCardPopup._getInputValues(), '#item-template', handleCardClick));
-
+const addCardSubmit = (inputValues) => {
+  initialSection.addItem(createCard(inputValues, '#item-template', handleCardClick));
   formAddCardPopup.close();
 };
 
 const handleCardClick = (link, name) => {
+  imagePreview.setEventListeners();
   imagePreview.open(link, name);
 };
 
 // Создание экземпляров классов попапов
 const formEditProfilePopup = new PopupWithForm('.popup_type_edit', handleFormEditSubmit);
-formEditProfilePopup.setEventListeners();
 
 const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
-formAddCardPopup.setEventListeners();
 
 const imagePreview = new PopupWithImage('.popup_type_image');
-imagePreview.setEventListeners();
 
 // Создание карточки
 const createCard = (cardItem, cardSelector, handleClickImage) => {
