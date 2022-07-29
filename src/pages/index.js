@@ -70,8 +70,10 @@ cardAddBtn.addEventListener('click', () => {
 });
 
 const addCardSubmit = (inputValues) => {
+  // evt.preventDefault();
   initialSection.addItem(createCard(inputValues, '#item-template', handleCardClick));
   formAddCardPopup.close();
+  console.log(inputValues)
 };
 
 const handleCardClick = (link, name) => {
