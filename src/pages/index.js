@@ -17,7 +17,6 @@ const profileInfo = {
   profileAboutSelector: '.profile__subtitle',
 };
 
-
 const config = {
   fieldsSelector: '.form__fields',
   inputList: '.form__field',
@@ -39,7 +38,6 @@ const newUser = new UserInfo(profileInfo);
 
 // попап редактирования профиля
 profileEditBtn.addEventListener('click', () => {
-  formEditProfilePopup.setEventListeners();
   formEditProfilePopup.open();
 
   validatEditProfileForm.clearInputsError();
@@ -64,20 +62,17 @@ const handleFormEditSubmit = (inputValues) => {
 
 // попап добавления новой картчоки
 cardAddBtn.addEventListener('click', () => {
-  formAddCardPopup.setEventListeners();
   formAddCardPopup.open();
   validateAddCardForm.clearInputsError();
 });
 
 const addCardSubmit = (inputValues) => {
-  // evt.preventDefault();
   initialSection.addItem(createCard(inputValues, '#item-template', handleCardClick));
   formAddCardPopup.close();
-  console.log(inputValues)
 };
 
+// попап превью картинки
 const handleCardClick = (link, name) => {
-  imagePreview.setEventListeners();
   imagePreview.open(link, name);
 };
 
