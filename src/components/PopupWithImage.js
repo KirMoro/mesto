@@ -5,7 +5,7 @@ export default class PopupWithImage extends Popup {
     super(popupSelector);
     this._popupImageCard = this._popup.querySelector('.popup__image');
     this._popupCapture = this._popup.querySelector('.popup__capture');
-    this._setEventListeners = super.setEventListeners();
+    super.setEventListeners();
   }
 
   open(link, name) {
