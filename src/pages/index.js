@@ -9,6 +9,7 @@ import { initialCards } from '../utils/initial-cards.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
+const avatarSetBtn = document.querySelector('.profile__add-avatar-button');
 const nameInput = document.querySelector('.form__field_type_name');
 const jobInput = document.querySelector('.form__field_type_about');
 
@@ -32,6 +33,9 @@ validatEditProfileForm.enableValidation();
 
 const validateAddCardForm = new FormValidator(config, '.form_type_add');
 validateAddCardForm.enableValidation();
+
+const validateSetAvatarForm = new FormValidator(config, '.form_type_add-avatar');
+validateSetAvatarForm.enableValidation();
 
 // Создание экземпляра класса UserInfo
 const newUser = new UserInfo(profileInfo);
@@ -76,10 +80,23 @@ const handleCardClick = (link, name) => {
   imagePreview.open(link, name);
 };
 
+// попап добавления аватара
+avatarSetBtn.addEventListener('click', () => {
+  formAddAvatarPopup.open();
+  validateSetAvatarForm.clearInputsError();
+});
+
+
+const setAvatarSubmit = () => {
+  console.log('hello')
+};
+
 // Создание экземпляров классов попапов
 const formEditProfilePopup = new PopupWithForm('.popup_type_edit', handleFormEditSubmit);
 
 const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
+
+const formAddAvatarPopup = new PopupWithForm('.popup_type_add-avatar', setAvatarSubmit);
 
 const imagePreview = new PopupWithImage('.popup_type_image');
 

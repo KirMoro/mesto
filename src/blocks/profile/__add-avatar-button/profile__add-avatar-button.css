@@ -1,0 +1,19 @@
+.profile__add-avatar-button {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: none;
+  margin: 0;
+  background: url('../../../images/profile-add-avatar-button.png') center no-repeat;
+  cursor: pointer;
+  grid-area: logo;
+  justify-self: left;
+  outline: none;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.profile__add-avatar-button:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+}
