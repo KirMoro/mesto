@@ -6,10 +6,11 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { initialCards } from '../utils/initial-cards.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
-const avatarSetBtn = document.querySelector('.profile__add-avatar-button');
+const avatarEditBtn = document.querySelector('.profile__edit-avatar-button');
 const nameInput = document.querySelector('.form__field_type_name');
 const jobInput = document.querySelector('.form__field_type_about');
 
@@ -81,14 +82,18 @@ const handleCardClick = (link, name) => {
 };
 
 // попап добавления аватара
-avatarSetBtn.addEventListener('click', () => {
+avatarEditBtn.addEventListener('click', () => {
   formAddAvatarPopup.open();
   validateSetAvatarForm.clearInputsError();
 });
 
-
 const setAvatarSubmit = () => {
   console.log('hello')
+};
+
+//попап подтверждения удаления карточки
+const handleTrashBtnClick = () => {
+  confirmPopup.open();
 };
 
 // Создание экземпляров классов попапов
@@ -98,11 +103,13 @@ const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
 
 const formAddAvatarPopup = new PopupWithForm('.popup_type_add-avatar', setAvatarSubmit);
 
+const confirmPopup = new PopupWithConfirm('.popup_type_confirm', setAvatarSubmit)
+
 const imagePreview = new PopupWithImage('.popup_type_image');
 
 // Создание карточки
-const createCard = (cardItem, cardSelector, handleClickImage) => {
-  const card = new Card(cardItem, cardSelector, handleClickImage);
+const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick) => {
+  const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick);
   const cardElement = card.generateCard();
 
   return cardElement;
@@ -111,7 +118,7 @@ const createCard = (cardItem, cardSelector, handleClickImage) => {
 // Создание новой секции
 const initialSection = new Section({
   items: initialCards, renderer: (item) => {
-    initialSection.addItem(createCard(item, '#item-template', handleCardClick));
+    initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick));
   },
 }, '.elements');
 

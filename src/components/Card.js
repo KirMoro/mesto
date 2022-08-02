@@ -1,10 +1,11 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardClick) {
+  constructor({ name, link }, cardSelector, handleCardClick, handleTrashBtnClick) {
     this._name = name;
     this._link = link;
     this._alt = name;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleTrashBtnClick = handleTrashBtnClick;
   }
 
   _getElement() {
@@ -33,7 +34,8 @@ export default class Card {
     });
 
     this._element.querySelector('.elements__trash-button').addEventListener('click', () => {
-      this._deleteCard();
+      // this._deleteCard();
+      this._handleTrashBtnClick();
     });
 
     this._element.querySelector('.elements__image').addEventListener('click', () => {
