@@ -18,6 +18,7 @@ const jobInput = document.querySelector('.form__field_type_about');
 const profileInfo = {
   profileNameSelector: '.profile__title',
   profileAboutSelector: '.profile__subtitle',
+  profileAvatar: '.profile__avatar',
 };
 
 const config = {
@@ -147,28 +148,12 @@ initialSection.renderItems();
     }
   });
 
-// api.getProfileInfo('users/me')
-// api.getInfo();
-
-// api.getInitialCards()
-//   .then((result) => {
-//     // обрабатываем результат
-//   })
-//   .catch((err) => {
-//     console.log(err); // выведем ошибку в консоль
-//   });
-
 
 // Запрос информации о профиле
-// fetch('https://mesto.nomoreparties.co/v1/cohort-48/users/me', {
-//   headers: {
-//     authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
+api.getProfileInfo('users/me')
+  .then((result) => {
+    newUser.setUserInfo(result);
+  })
 
 // Запрос информации о карточках
 // fetch('https://mesto.nomoreparties.co/v1/cohort-48/cards', {
