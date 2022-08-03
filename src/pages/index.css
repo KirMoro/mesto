@@ -17,6 +17,7 @@
 @import '../blocks/elements/__title/elements__title.css';
 @import '../blocks/elements/__like-button/elements__like-button.css';
 @import '../blocks/elements/__like-button/_active/elements__like-button_active.css';
+@import '../blocks/elements/__like-counter/elements__like-counter.css';
 @import '../blocks/elements/__trash-button/elements__trash-button.css';
 @import '../blocks/footer/footer.css';
 @import '../blocks/footer/__copyright/footer__copyright.css';

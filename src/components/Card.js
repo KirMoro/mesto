@@ -43,7 +43,7 @@ export default class Card {
     });
   }
 
-  generateCard() {
+  generateCard(Deleteable) {
     this._getElement();
     this._setEventListeners();
     const initialElementImage = this._element.querySelector('.elements__image');
@@ -52,6 +52,11 @@ export default class Card {
     initialElementImage.src = this._link;
     initialElementImage.alt = this._name;
 
-    return this._element;
+    if (Deleteable) {
+      return this._element;
+    } else {
+      this._element.querySelector('.elements__trash-button').remove();
+      return this._element;
+    }
   }
 }

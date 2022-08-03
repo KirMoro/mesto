@@ -7,6 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { initialCards } from '../utils/initial-cards.js';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
+import Api from '../components/Api.js';
 
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const cardAddBtn = document.querySelector('.profile__add-button');
@@ -103,14 +104,25 @@ const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
 
 const formAddAvatarPopup = new PopupWithForm('.popup_type_add-avatar', setAvatarSubmit);
 
-const confirmPopup = new PopupWithConfirm('.popup_type_confirm', setAvatarSubmit)
+// const confirmPopup = new PopupWithConfirm('.popup_type_confirm', setAvatarSubmit)
 
 const imagePreview = new PopupWithImage('.popup_type_image');
 
 // Создание карточки
-const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick) => {
-  const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick);
-  const cardElement = card.generateCard();
+const createCard = (
+  cardItem,
+  cardSelector,
+  handleClickImage,
+  handleTrashBtnClick,
+  isDelete
+) => {
+    const card = new Card(
+      cardItem,
+      cardSelector,
+      handleClickImage,
+      handleTrashBtnClick,
+      );
+    const cardElement = card.generateCard(isDelete);
 
   return cardElement;
 };
@@ -118,9 +130,53 @@ const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClic
 // Создание новой секции
 const initialSection = new Section({
   items: initialCards, renderer: (item) => {
-    initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick));
+    initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, false));
   },
 }, '.elements');
 
 // Загрузка карточек
 initialSection.renderItems();
+
+
+
+  const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48',
+    headers: {
+      authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415',
+      'Content-Type': 'application/json'
+    }
+  });
+
+// api.getProfileInfo('users/me')
+// api.getInfo();
+
+// api.getInitialCards()
+//   .then((result) => {
+//     // обрабатываем результат
+//   })
+//   .catch((err) => {
+//     console.log(err); // выведем ошибку в консоль
+//   });
+
+
+// Запрос информации о профиле
+// fetch('https://mesto.nomoreparties.co/v1/cohort-48/users/me', {
+//   headers: {
+//     authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   });
+
+// Запрос информации о карточках
+// fetch('https://mesto.nomoreparties.co/v1/cohort-48/cards', {
+//   headers: {
+//     authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   });
