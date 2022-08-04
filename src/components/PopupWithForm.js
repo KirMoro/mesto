@@ -26,6 +26,15 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
+  setSavingMode() {
+    this._form.querySelector('.form__submit-button').textContent = 'Сохранение...'
+  }
+
+  removeSavingMode() {
+    this._form.querySelector('.form__submit-button').textContent = 'Сохранить'
+
+  }
+
   close() {
     super.close();
     this._form.reset();

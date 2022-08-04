@@ -28,10 +28,10 @@ export default class Api {
       })
   }
 
-  getInitialCards() {
+  getInitialCards(link) {
+    return this._fetch(link);
   }
 
- // Запрос информации о профиле
   getProfileInfo(link) {
    return this._fetch(link);
   }
@@ -40,8 +40,13 @@ export default class Api {
     return this._fetch(link, method, body)
   }
 
-  getInfo() {
+  setProfileAvatar(link, method, { avatar }) {
+    return this._fetch(link, method, { avatar })
+}
 
+  setNewCard(link, method, body) {
+    return this._fetch(link, method, body)
   }
+
   // другие методы работы с API
 }

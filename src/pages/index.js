@@ -61,10 +61,12 @@ function fillingInputs() {
 }
 
 const handleFormEditSubmit = (inputValues) => {
+  formEditProfilePopup.setSavingMode();
   api.setProfileInfo('users/me', 'PATCH', inputValues)
     .then((result) => {
       newUser.setUserInfo(result);
       formEditProfilePopup.close();
+      formEditProfilePopup.removeSavingMode();
     })
     .catch((err) => {
       console.log(err)
@@ -78,8 +80,11 @@ cardAddBtn.addEventListener('click', () => {
 });
 
 const addCardSubmit = (inputValues) => {
-  initialSection.addItem(createCard(inputValues, '#item-template', handleCardClick));
-  formAddCardPopup.close();
+  api.setNewCard('cards', 'POST', inputValues)
+    .then((result) => {
+      initialSection.addItem(createCard(result, '#item-template', handleCardClick, true));
+      formAddCardPopup.close();
+    })
 };
 
 // попап превью картинки
@@ -93,8 +98,17 @@ avatarEditBtn.addEventListener('click', () => {
   validateSetAvatarForm.clearInputsError();
 });
 
-const setAvatarSubmit = () => {
-  console.log('hello')
+const setAvatarSubmit = (inputValues) => {
+  formAddAvatarPopup.setSavingMode();
+  api.setProfileAvatar('users/me/avatar', 'PATCH', inputValues)
+    .then((result) => {
+      newUser.setUserAvatar(result);
+      formAddAvatarPopup.close();
+      formAddAvatarPopup.removeSavingMode();
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 };
 
 //попап подтверждения удаления карточки
@@ -132,16 +146,15 @@ const createCard = (
   return cardElement;
 };
 
-// Создание новой секции
-const initialSection = new Section({
-  items: initialCards, renderer: (item) => {
-    initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, false));
-  },
-}, '.elements');
 
-// Загрузка карточек
-initialSection.renderItems();
-
+// const initialSection = new Section({
+//   items: initialCards, renderer: (item) => {
+//     initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, false));
+//   },
+// }, '.elements');
+//
+// // Загрузка карточек
+// initialSection.renderItems();
 
 
   const api = new Api({
@@ -161,6 +174,19 @@ api.getProfileInfo('users/me')
   })
   .catch((err) => {
     console.log(err)
+  })
+
+// Создание новой секции
+api.getInitialCards('cards')
+  .then((result) => {
+    const initialSection = new Section({
+      items: result, renderer: (item) => {
+        initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, false));
+      },
+    }, '.elements');
+
+// Загрузка карточек
+    initialSection.renderItems();
   })
 
 // Запрос информации о карточках
