@@ -8,7 +8,7 @@ export default class UserInfo {
   getUserInfo() {
     const userInfo = {
       name: this._profileName.textContent,
-      job: this._profileAbout.textContent,
+      about: this._profileAbout.textContent,
     };
 
     return userInfo;
@@ -17,7 +17,9 @@ export default class UserInfo {
   setUserInfo(data) {
       this._profileName.textContent = data.name;
       this._profileAbout.textContent = data.about;
-      this._profileAvatar.src = data.avatar;
+  }
 
+  setUserAvatar(data) {
+    this._profileAvatar.src = data.avatar;
   }
 }

@@ -7,8 +7,10 @@ export default class Api {
     this._fetch = (link, method = 'GET', body = undefined) => fetch(`${this._baseUrl}/${link}`, {
       method: method,
       headers: {
-        authorization: this._token
-      }
+        authorization: this._token,
+        'content-type': this._content_type
+      },
+      body: body && JSON.stringify(body)
     })
       .then(res => {
         if (res.ok) {
@@ -20,7 +22,10 @@ export default class Api {
         )
       .then((result) => {
           return result
-      });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   getInitialCards() {
@@ -31,10 +36,12 @@ export default class Api {
    return this._fetch(link);
   }
 
+  setProfileInfo(link, method, body ) {
+    return this._fetch(link, method, body)
+  }
+
   getInfo() {
-    console.log(this._baseUrl);
-    console.log(this._headers);
-    console.log(this._token)
+
   }
   // другие методы работы с API
 }

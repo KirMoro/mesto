@@ -57,14 +57,18 @@ function fillingInputs() {
   const userInfo = newUser.getUserInfo();
 
   nameInput.value = userInfo.name;
-  jobInput.value = userInfo.job;
+  jobInput.value = userInfo.about;
 }
 
 const handleFormEditSubmit = (inputValues) => {
-
-  newUser.setUserInfo(inputValues);
-
-  formEditProfilePopup.close();
+  api.setProfileInfo('users/me', 'PATCH', inputValues)
+    .then((result) => {
+      newUser.setUserInfo(result);
+      formEditProfilePopup.close();
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 };
 
 // попап добавления новой картчоки
@@ -153,6 +157,10 @@ initialSection.renderItems();
 api.getProfileInfo('users/me')
   .then((result) => {
     newUser.setUserInfo(result);
+    newUser.setUserAvatar(result);
+  })
+  .catch((err) => {
+    console.log(err)
   })
 
 // Запрос информации о карточках
