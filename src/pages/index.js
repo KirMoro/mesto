@@ -85,6 +85,9 @@ const addCardSubmit = (inputValues) => {
       initialSection.addItem(createCard(result, '#item-template', handleCardClick, true));
       formAddCardPopup.close();
     })
+    .catch((err) => {
+      console.log(err)
+    })
 };
 
 // попап превью картинки
@@ -146,17 +149,6 @@ const createCard = (
   return cardElement;
 };
 
-
-// const initialSection = new Section({
-//   items: initialCards, renderer: (item) => {
-//     initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, false));
-//   },
-// }, '.elements');
-//
-// // Загрузка карточек
-// initialSection.renderItems();
-
-
   const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48',
     headers: {
@@ -185,17 +177,8 @@ api.getInitialCards('cards')
       },
     }, '.elements');
 
-// Загрузка карточек
     initialSection.renderItems();
   })
-
-// Запрос информации о карточках
-// fetch('https://mesto.nomoreparties.co/v1/cohort-48/cards', {
-//   headers: {
-//     authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
+.catch((err) => {
+    console.log(err)
+  })
