@@ -21,11 +21,11 @@ const api = new Api({
 const newUser = new UserInfo(profileInfo);
 
 // Запрос информации о профиле и загрузка карточек
-api.getProfileInfo('users/me')
+api.getProfileInfo()
   .then((res) => {
     newUser.setUserInfo(res);
     newUser.setUserAvatar(res);
-    api.getInitialCards('cards')
+    api.getInitialCards()
       .then((result) => {
         const initialSection = new Section({
           items: result,
@@ -71,7 +71,7 @@ const fillingInputs = () => {
 
 const handleFormEditSubmit = (inputValues) => {
   formEditProfilePopup.setSavingMode();
-  api.setProfileInfo('users/me', 'PATCH', inputValues)
+  api.setProfileInfo(inputValues)
     .then((result) => {
       newUser.setUserInfo(result);
       formEditProfilePopup.close();
@@ -89,7 +89,7 @@ cardAddBtn.addEventListener('click', () => {
 });
 
 const addCardSubmit = (inputValues) => {
-  api.setNewCard('cards', 'POST', inputValues)
+  api.setNewCard(inputValues)
     .then((result) => {
       const initialSection = new Section({
         items: result,
@@ -119,7 +119,7 @@ avatarEditBtn.addEventListener('click', () => {
 
 const setAvatarSubmit = (inputValues) => {
   formAddAvatarPopup.setSavingMode();
-  api.setProfileAvatar('users/me/avatar', 'PATCH', inputValues)
+  api.setProfileAvatar(inputValues)
     .then((result) => {
       newUser.setUserAvatar(result);
       formAddAvatarPopup.close();
@@ -136,7 +136,7 @@ const handleTrashBtnClick = (id, cardElement) => {
 };
 
 const deleteUserCard = (id, cardElement) => {
-  api.deleteCard(`cards/${id}`, 'DELETE')
+  api.deleteCard(id)
     .then(() => {
       const initialSection = new Section({}, '.elements');
       initialSection.deleteItem(cardElement);
@@ -169,7 +169,7 @@ const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClic
 // Обработка лайков
 const handleLikeClick = (id, likeElement, likeCounter) => {
   if (!likeElement.classList.contains('elements_like-button_active')) {
-    api.removeLike(`cards/likes/${id}`, 'DELETE')
+    api.removeLike(id)
       .then((result) => {
         likeCounter.textContent = result.likes.length;
       })
@@ -177,7 +177,7 @@ const handleLikeClick = (id, likeElement, likeCounter) => {
         console.log(err);
       });
   } else {
-    api.addLike(`cards/likes/${id}`, 'PUT')
+    api.addLike(id)
       .then((result) => {
         likeCounter.textContent = result.likes.length;
       })

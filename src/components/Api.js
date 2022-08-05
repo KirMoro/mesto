@@ -28,35 +28,35 @@ export default class Api {
       });
   }
 
-  getInitialCards(link) {
-    return this._fetch(link);
+  getInitialCards() {
+    return this._fetch('cards');
   }
 
-  getProfileInfo(link) {
-    return this._fetch(link);
+  getProfileInfo() {
+    return this._fetch('users/me');
   }
 
-  setProfileInfo(link, method, body) {
-    return this._fetch(link, method, body);
+  setProfileInfo(body) {
+    return this._fetch('users/me', 'PATCH', body);
   }
 
-  setProfileAvatar(link, method, { avatar }) {
-    return this._fetch(link, method, { avatar });
+  setProfileAvatar({ avatar }) {
+    return this._fetch('users/me/avatar', 'PATCH', { avatar });
   }
 
-  setNewCard(link, method, body) {
-    return this._fetch(link, method, body);
+  setNewCard(body) {
+    return this._fetch('cards', 'POST', body);
   }
 
-  deleteCard(link, method) {
-    return this._fetch(link, method);
+  deleteCard(id) {
+    return this._fetch(`cards/${id}`, 'DELETE');
   }
 
-  addLike(link, method) {
-    return this._fetch(link, method);
+  addLike(id) {
+    return this._fetch(`cards/likes/${id}`, 'PUT');
   }
 
-  removeLike(link, method) {
-    return this._fetch(link, method);
+  removeLike(id) {
+    return this._fetch(`cards/likes/${id}`, 'DELETE');
   }
 }
