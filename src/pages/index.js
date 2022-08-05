@@ -17,6 +17,91 @@ const api = new Api({
   }
 });
 
+const runApp = ({
+  profile,
+  cards
+}, api) => {
+  const initialSection = new Section({
+    items: cards,
+    renderer: (item) => {
+      const idCompare = profile._id === item.owner._id;
+      initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare));
+    },
+  }, '.elements');
+
+  initialSection.renderItems();
+
+// попап редактирования профиля
+  profileEditBtn.addEventListener('click', () => {
+    formEditProfilePopup.open();
+
+    validatEditProfileForm.clearInputsError();
+    validatEditProfileForm.enableSubmitBtn();
+
+    fillingInputs();
+  });
+
+  const fillingInputs = () => {
+    const userInfo = newUser.getUserInfo();
+
+    nameInput.value = userInfo.name;
+    jobInput.value = userInfo.about;
+  }
+
+  const handleFormEditSubmit = (inputValues) => {
+    formEditProfilePopup.setSavingMode();
+    api.setProfileInfo(inputValues)
+      .then((result) => {
+        newUser.setUserInfo(result);
+        formEditProfilePopup.close();
+        formEditProfilePopup.removeSavingMode();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const formEditProfilePopup = new PopupWithForm('.popup_type_edit', handleFormEditSubmit);
+
+  cardAddBtn.addEventListener('click', () => {
+    formAddCardPopup.open();
+    validateAddCardForm.clearInputsError();
+  });
+
+  const addCardSubmit = (inputValues) => {
+    api.setNewCard(inputValues)
+      .then((result) => {
+        // const initialSection = new Section({
+        //   items: result,
+        //   renderer: (result) => {
+        //     initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, true));
+        //   },
+        // }, '.elements');
+
+        initialSection.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, true));
+        formAddCardPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
+
+
+};
+
+const initialPromises = Promise.all([
+  api.getProfileInfo(),
+  api.getInitialCards(),
+]);
+
+initialPromises
+  .then(([profile, cards]) => runApp({ profile, cards }, api))
+  .catch((err) => {
+    console.log(err);
+  })
+
 // Создание экземпляра класса UserInfo
 const newUser = new UserInfo(profileInfo);
 
@@ -27,15 +112,15 @@ api.getProfileInfo()
     newUser.setUserAvatar(res);
     api.getInitialCards()
       .then((result) => {
-        const initialSection = new Section({
-          items: result,
-          renderer: (item) => {
-            const idCompare = res._id === item.owner._id;
-            initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare));
-          },
-        }, '.elements');
-
-        initialSection.renderItems();
+        // const initialSection = new Section({
+        //   items: result,
+        //   renderer: (item) => {
+        //     const idCompare = res._id === item.owner._id;
+        //     initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare));
+        //   },
+        // }, '.elements');
+        //
+        // initialSection.renderItems();
       });
   })
   .catch((err) => {
@@ -53,58 +138,58 @@ const validateSetAvatarForm = new FormValidator(config, '.form_type_add-avatar')
 validateSetAvatarForm.enableValidation();
 
 // попап редактирования профиля
-profileEditBtn.addEventListener('click', () => {
-  formEditProfilePopup.open();
-
-  validatEditProfileForm.clearInputsError();
-  validatEditProfileForm.enableSubmitBtn();
-
-  fillingInputs();
-});
-
-const fillingInputs = () => {
-  const userInfo = newUser.getUserInfo();
-
-  nameInput.value = userInfo.name;
-  jobInput.value = userInfo.about;
-}
-
-const handleFormEditSubmit = (inputValues) => {
-  formEditProfilePopup.setSavingMode();
-  api.setProfileInfo(inputValues)
-    .then((result) => {
-      newUser.setUserInfo(result);
-      formEditProfilePopup.close();
-      formEditProfilePopup.removeSavingMode();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// profileEditBtn.addEventListener('click', () => {
+//   formEditProfilePopup.open();
+//
+//   validatEditProfileForm.clearInputsError();
+//   validatEditProfileForm.enableSubmitBtn();
+//
+//   fillingInputs();
+// });
+//
+// const fillingInputs = () => {
+//   const userInfo = newUser.getUserInfo();
+//
+//   nameInput.value = userInfo.name;
+//   jobInput.value = userInfo.about;
+// }
+//
+// const handleFormEditSubmit = (inputValues) => {
+//   formEditProfilePopup.setSavingMode();
+//   api.setProfileInfo(inputValues)
+//     .then((result) => {
+//       newUser.setUserInfo(result);
+//       formEditProfilePopup.close();
+//       formEditProfilePopup.removeSavingMode();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 // попап добавления новой картчоки
-cardAddBtn.addEventListener('click', () => {
-  formAddCardPopup.open();
-  validateAddCardForm.clearInputsError();
-});
-
-const addCardSubmit = (inputValues) => {
-  api.setNewCard(inputValues)
-    .then((result) => {
-      const initialSection = new Section({
-        items: result,
-        renderer: (result) => {
-          initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, true));
-        },
-      }, '.elements');
-
-      initialSection.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, true));
-      formAddCardPopup.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// cardAddBtn.addEventListener('click', () => {
+//   formAddCardPopup.open();
+//   validateAddCardForm.clearInputsError();
+// });
+//
+// const addCardSubmit = (inputValues) => {
+//   api.setNewCard(inputValues)
+//     .then((result) => {
+//       // const initialSection = new Section({
+//       //   items: result,
+//       //   renderer: (result) => {
+//       //     initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, true));
+//       //   },
+//       // }, '.elements');
+//
+//       initialSection.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, true));
+//       formAddCardPopup.close();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 // попап превью картинки
 const handleCardClick = (link, name) => {
@@ -148,9 +233,9 @@ const deleteUserCard = (id, cardElement) => {
 };
 
 // Создание экземпляров классов попапов
-const formEditProfilePopup = new PopupWithForm('.popup_type_edit', handleFormEditSubmit);
+// const formEditProfilePopup = new PopupWithForm('.popup_type_edit', handleFormEditSubmit);
 
-const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
+// const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
 
 const formAddAvatarPopup = new PopupWithForm('.popup_type_add-avatar', setAvatarSubmit);
 
