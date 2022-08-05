@@ -1,8 +1,11 @@
-import PopupWithForm from './PopupWithForm.js';
+import Popup from './Popup.js';
 
-export default class PopupWithConfirm extends PopupWithForm {
+export default class PopupWithConfirm extends Popup {
   constructor(popupSelector, formSubmitHandler) {
-    super(popupSelector, formSubmitHandler);
+    super(popupSelector);
+    this._formSubmitHandler = formSubmitHandler;
+    this._form = this._popup.querySelector('.form');
+    this.setEventListeners();
   }
 
   open(id, cardElement) {
@@ -17,15 +20,6 @@ export default class PopupWithConfirm extends PopupWithForm {
       this._formSubmitHandler(this._id, this._element);
     });
 
-    this._popup.addEventListener('mousedown', (evt) => {
-      if (evt.target === evt.currentTarget) {
-        this.close();
-      }
-    });
-
-    const closeBtn = this._popup.querySelector('.popup__close-button');
-    closeBtn.addEventListener('click', () => {
-      this.close();
-    });
+   super.setEventListeners();
   }
 }
