@@ -9,6 +9,10 @@ export default class Section {
     this._container.prepend(cardElement);
   }
 
+  deleteItem(cardElement) {
+    cardElement.remove();
+  }
+
   renderItems() {
     this._item.forEach((item) => {
       this._renderer(item);

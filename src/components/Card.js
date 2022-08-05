@@ -1,8 +1,9 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardClick, handleTrashBtnClick) {
+  constructor({ name, link, _id }, cardSelector, handleCardClick, handleTrashBtnClick) {
     this._name = name;
     this._link = link;
     this._alt = name;
+    this._id = _id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleTrashBtnClick = handleTrashBtnClick;
@@ -22,11 +23,6 @@ export default class Card {
     likeElement.classList.toggle('elements_like-button_active');
   }
 
-  _deleteCard() {
-    this._element.remove();
-    this._element = null;
-  }
-
   _setEventListeners() {
     const likeElement = this._element.querySelector('.elements__like-button');
     likeElement.addEventListener('click', () => {
@@ -34,8 +30,7 @@ export default class Card {
     });
 
     this._element.querySelector('.elements__trash-button').addEventListener('click', () => {
-      // this._deleteCard();
-      this._handleTrashBtnClick();
+      this._handleTrashBtnClick(this._id, this._element);
     });
 
     this._element.querySelector('.elements__image').addEventListener('click', () => {

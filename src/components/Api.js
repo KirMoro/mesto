@@ -48,5 +48,17 @@ export default class Api {
     return this._fetch(link, method, body)
   }
 
+  deleteCard(link, method) {
+    return this._fetch(link, method)
+  }
+
+  addLike(link, method, body) {
+    return this._fetch(link, method, body)
+  }
+
+  removeLike(link, method) {
+    return this._fetch(link, method)
+  }
+
   // другие методы работы с API
 }
