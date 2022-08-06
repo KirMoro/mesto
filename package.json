@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve",
-    "lint": "stylelint \"**/*.css\" ; npx eslint ."
+    "lint": "stylelint \"**/*.css\" ; npx eslint .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
