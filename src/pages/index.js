@@ -60,8 +60,8 @@ const runApp = ({
       .then((result) => {
         newUser.setUserInfo(result);
         formEditProfilePopup.close();
-        formEditProfilePopup.removeSavingMode();
       })
+      .then(() => formEditProfilePopup.removeSavingMode())
       .catch((err) => {
         console.log(err);
       });
@@ -75,7 +75,7 @@ const runApp = ({
   const addCardSubmit = (inputValues) => {
     api.setNewCard(inputValues)
       .then((result) => {
-        initialSection.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, true));
+        cardsContainer.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, true));
         formAddCardPopup.close();
       })
       .catch((err) => {
@@ -102,8 +102,8 @@ const runApp = ({
       .then((result) => {
         newUser.setUserAvatar(result);
         formAddAvatarPopup.close();
-        formAddAvatarPopup.removeSavingMode();
       })
+      .then(() => formEditProfilePopup.removeSavingMode())
       .catch((err) => {
         console.log(err);
       });
@@ -117,8 +117,7 @@ const runApp = ({
   const deleteUserCard = (id, cardElement) => {
     api.deleteCard(id)
       .then(() => {
-        const initialSection = new Section({}, '.elements');
-        initialSection.deleteItem(cardElement);
+        cardsContainer.deleteItem(cardElement);
         confirmPopup.close();
       })
       .catch((err) => {
@@ -139,6 +138,11 @@ const runApp = ({
     } else {
       api.addLike(id)
         .then((result) => {
+          console.log(result)
+          console.log(profile._id)
+          console.log(result.likes)
+          console.log(result.likes.some((like) => like._id === profile._id))
+
           likeCounter.textContent = result.likes.length;
         })
         .catch((err) => {
@@ -159,15 +163,15 @@ const runApp = ({
     });
 
   // Загрузка карточек на страницу
-  const initialSection = new Section({
+  const cardsContainer = new Section({
     items: cards,
     renderer: (item) => {
       const idCompare = profile._id === item.owner._id;
-      initialSection.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare));
+      cardsContainer.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare));
     },
   }, '.elements');
 
-  initialSection.renderItems();
+  cardsContainer.renderItems();
 
 // Создание экземпляра класса UserInfo
   const newUser = new UserInfo(profileInfo);

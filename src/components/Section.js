@@ -8,12 +8,12 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  addItem(cardElement) {
-    this._container.prepend(cardElement);
+  addItem(item) {
+    this._container.prepend(item);
   }
 
-  deleteItem(cardElement) {
-    cardElement.remove();
+  deleteItem(item) {
+    item.remove();
   }
 
   renderItems() {

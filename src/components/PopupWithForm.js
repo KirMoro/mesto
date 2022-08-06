@@ -32,7 +32,6 @@ export default class PopupWithForm extends Popup {
 
   removeSavingMode() {
     this._form.querySelector('.form__submit-button').textContent = 'Сохранить';
-
   }
 
   close() {
