@@ -14,14 +14,14 @@ import {
   nameInput,
   jobInput,
   profileInfo,
-  config
+  config,
 } from '../utils/constants.js';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-48',
   headers: {
     authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 });
 
@@ -127,25 +127,19 @@ const runApp = ({
 
   // Обработка лайков
   const handleLikeClick = (id, likeElement, likeCounter, likeHandler) => {
-    api.removeLike(id)
-      .then((result) => likeHandler(result));
-    // if (!likeElement.classList.contains('elements_like-button_active')) {
-    //   api.removeLike(id)
-    //     .then((result) => {
-    //       likeCounter.textContent = result.likes.length;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } else {
-    //   api.addLike(id)
-    //     .then((result) => {
-    //       likeCounter.textContent = result.likes.length;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
+    if (likeElement.classList.contains('elements_like-button_active')) {
+      api.removeLike(id)
+        .then((result) => likeHandler(result, false))
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      api.addLike(id)
+        .then((result) => likeHandler(result, true))
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   // Запрос информации о профиле

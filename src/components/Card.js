@@ -25,29 +25,19 @@ export default class Card {
 
     this._element = cardElement;
   }
-  //
-  _toggleLike(data) {
-    console.log(data)
-    // if (likeElement.classList.contains('elements_like-button_active')) {
-    //
-    //       likeCounter.textContent = result.likes.length;
-    //
-    //     }  else {
-    //
-    //       likeCounter.textContent = result.likes.length;
-    //     }
-    // likeCounter.textContent = result.likes.length + 1;
-    //
-    // likeElement.classList.toggle('elements_like-button_active');
 
+  _toggleLike(likesArr, operator) {
+    if (!operator) {
+      this._likeCounter.textContent = Math.max(0, likesArr.likes.length - 1);
+    } else {
+      this._likeCounter.textContent = likesArr.likes.length;
     }
-
-
+    this._likeElement.classList.toggle('elements_like-button_active');
+  }
 
   _setEventListeners() {
     this._likeElement.addEventListener('click', () => {
-      // this._toggleLike(this._likeElement);
-      this._handleLikeClick(this._id, this._likeElement, this._likeCounter, this._toggleLike);
+      this._handleLikeClick(this._id, this._likeElement, this._likeCounter, this._toggleLike.bind(this));
     });
 
     this._element.querySelector('.elements__trash-button')
@@ -67,6 +57,7 @@ export default class Card {
     const initialElementImage = this._element.querySelector('.elements__image');
     this._likeElement = this._element.querySelector('.elements__like-button');
     this._likeCounter = this._element.querySelector('.elements__like-counter');
+    this._isLike = isLike;
 
     this._setEventListeners();
 
