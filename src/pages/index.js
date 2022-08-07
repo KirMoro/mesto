@@ -30,9 +30,9 @@ const runApp = ({
   cards
 }, api) => {
   // Функция создания карточки
-  const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick, isDelete) => {
-    const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick,);
-    const cardElement = card.generateCard(isDelete);
+  const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick, isDelete, isLike) => {
+    const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick);
+    const cardElement = card.generateCard(isDelete, isLike);
 
     return cardElement;
   };
@@ -75,7 +75,7 @@ const runApp = ({
   const addCardSubmit = (inputValues) => {
     api.setNewCard(inputValues)
       .then((result) => {
-        cardsContainer.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, true));
+        cardsContainer.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, true, false));
         formAddCardPopup.close();
       })
       .catch((err) => {
@@ -126,29 +126,26 @@ const runApp = ({
   };
 
   // Обработка лайков
-  const handleLikeClick = (id, likeElement, likeCounter) => {
-    if (!likeElement.classList.contains('elements_like-button_active')) {
-      api.removeLike(id)
-        .then((result) => {
-          likeCounter.textContent = result.likes.length;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      api.addLike(id)
-        .then((result) => {
-          console.log(result)
-          console.log(profile._id)
-          console.log(result.likes)
-          console.log(result.likes.some((like) => like._id === profile._id))
-
-          likeCounter.textContent = result.likes.length;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const handleLikeClick = (id, likeElement, likeCounter, likeHandler) => {
+    api.removeLike(id)
+      .then((result) => likeHandler(result));
+    // if (!likeElement.classList.contains('elements_like-button_active')) {
+    //   api.removeLike(id)
+    //     .then((result) => {
+    //       likeCounter.textContent = result.likes.length;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   api.addLike(id)
+    //     .then((result) => {
+    //       likeCounter.textContent = result.likes.length;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
   };
 
   // Запрос информации о профиле
@@ -166,8 +163,9 @@ const runApp = ({
   const cardsContainer = new Section({
     items: cards,
     renderer: (item) => {
+      const likeCompare = item.likes.some((like) => like._id === profile._id);
       const idCompare = profile._id === item.owner._id;
-      cardsContainer.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare));
+      cardsContainer.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare, likeCompare));
     },
   }, '.elements');
 
