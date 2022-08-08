@@ -22,27 +22,25 @@ const api = new Api({
   headers: {
     authorization: '6dcd6a5f-9295-4e62-a1cd-62fe426f6415',
     'Content-Type': 'application/json',
-  }
+  },
 });
 
 const runApp = ({
   profile,
-  cards
+  cards,
 }, api) => {
   // Функция создания карточки
   const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick, isDelete, isLike) => {
     const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick);
-    const cardElement = card.generateCard(isDelete, isLike);
-
-    return cardElement;
+    return card.generateCard(isDelete, isLike);
   };
 
-// попап редактирования профиля
+  // попап редактирования профиля
   profileEditBtn.addEventListener('click', () => {
     formEditProfilePopup.open();
 
-    validatEditProfileForm.clearInputsError();
-    validatEditProfileForm.enableSubmitBtn();
+    validateEditProfileForm.clearInputsError();
+    validateEditProfileForm.enableSubmitBtn();
 
     fillingInputs();
   });
@@ -61,10 +59,10 @@ const runApp = ({
         newUser.setUserInfo(result);
         formEditProfilePopup.close();
       })
-      .then(() => formEditProfilePopup.removeSavingMode())
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => formEditProfilePopup.removeSavingMode());
   };
 
   cardAddBtn.addEventListener('click', () => {
@@ -103,13 +101,13 @@ const runApp = ({
         newUser.setUserAvatar(result);
         formAddAvatarPopup.close();
       })
-      .then(() => formEditProfilePopup.removeSavingMode())
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => formAddAvatarPopup.removeSavingMode())
   };
 
-// попап подтверждения удаления карточки
+  // попап подтверждения удаления карточки
   const handleTrashBtnClick = (id, cardElement) => {
     confirmPopup.open(id, cardElement);
   };
@@ -165,12 +163,12 @@ const runApp = ({
 
   cardsContainer.renderItems();
 
-// Создание экземпляра класса UserInfo
+  // Создание экземпляра класса UserInfo
   const newUser = new UserInfo(profileInfo);
 
-// Включение валидации
-  const validatEditProfileForm = new FormValidator(config, '.form_type_edit');
-  validatEditProfileForm.enableValidation();
+  // Включение валидации
+  const validateEditProfileForm = new FormValidator(config, '.form_type_edit');
+  validateEditProfileForm.enableValidation();
 
   const validateAddCardForm = new FormValidator(config, '.form_type_add');
   validateAddCardForm.enableValidation();
@@ -193,9 +191,8 @@ const initialPromises = Promise.all([
 initialPromises
   .then(([profile, cards]) => runApp({
     profile,
-    cards
+    cards,
   }, api))
   .catch((err) => {
     console.log(err);
   });
-
