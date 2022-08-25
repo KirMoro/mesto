@@ -28,7 +28,7 @@ const api = new Api({
 const runApp = ({
   profile,
   cards,
-}, api) => {
+}) => {
   // Функция создания карточки
   const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick, isDelete, isLike) => {
     const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick);
@@ -104,7 +104,7 @@ const runApp = ({
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => formAddAvatarPopup.removeSavingMode())
+      .finally(() => formAddAvatarPopup.removeSavingMode());
   };
 
   // попап подтверждения удаления карточки
@@ -142,10 +142,9 @@ const runApp = ({
 
   // Запрос информации о профиле
   api.getProfileInfo()
-    .then((res) => {
-      newUser.setUserInfo(res);
-      newUser.setUserAvatar(res);
-      api.getInitialCards();
+    .then((userData) => {
+      newUser.setUserInfo(userData);
+      newUser.setUserAvatar(userData);
     })
     .catch((err) => {
       console.log(err);
