@@ -30,12 +30,41 @@ const runApp = ({
   cards,
 }) => {
   // Функция создания карточки
-  const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick) => {
-    const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick);
+  const createCard = (cardItem, cardSelector) => {
+    const card = new Card(cardItem, cardSelector, {
+      onClick: (link, name) => {
+        imagePreview.open(link, name);
+      },
+      onDelete: (id, cardElement) => {
+        confirmPopup.open(id, cardElement);
+      },
+      onlike: (id, likeElement, likeCounter, likeHandler) => {
+        if (likeElement.classList.contains('elements_like-button_active')) {
+          api.removeLike(id)
+            .then((result) => likeHandler(result))
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          api.addLike(id)
+            .then((result) => likeHandler(result))
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      },
+      });
     return card.generateCard();
   };
 
   // попап редактирования профиля
+  const fillingInputs = () => {
+    const userInfo = newUser.getUserInfo();
+
+    nameInput.value = userInfo.name;
+    jobInput.value = userInfo.about;
+  };
+
   profileEditBtn.addEventListener('click', () => {
     formEditProfilePopup.open();
 
@@ -44,13 +73,6 @@ const runApp = ({
 
     fillingInputs();
   });
-
-  const fillingInputs = () => {
-    const userInfo = newUser.getUserInfo();
-
-    nameInput.value = userInfo.name;
-    jobInput.value = userInfo.about;
-  };
 
   const handleFormEditSubmit = (inputValues) => {
     formEditProfilePopup.setSavingMode();
@@ -71,22 +93,18 @@ const runApp = ({
   });
 
   const addCardSubmit = (inputValues) => {
+    formAddCardPopup.setSavingMode();
     api.setNewCard(inputValues)
-      .then((result) => {
-        cardsContainer.addItem(createCard(result, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, true, false));
+      .then((data) => {
+        data.currentUser = profile._id;
+        cardsContainer.addItem(createCard(data, '#item-template'));
         formAddCardPopup.close();
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => formAddCardPopup.removeSavingMode());
   };
-
-// попап превью картинки
-  const handleCardClick = (link, name) => {
-    imagePreview.open(link, name);
-  };
-
-  const imagePreview = new PopupWithImage('.popup_type_image');
 
 // попап добавления аватара
   avatarEditBtn.addEventListener('click', () => {
@@ -107,11 +125,7 @@ const runApp = ({
       .finally(() => formAddAvatarPopup.removeSavingMode());
   };
 
-  // попап подтверждения удаления карточки
-  const handleTrashBtnClick = (id, cardElement) => {
-    confirmPopup.open(id, cardElement);
-  };
-
+  // Подтверждениe удаления карточки
   const deleteUserCard = (id, cardElement) => {
     api.deleteCard(id)
       .then(() => {
@@ -121,23 +135,6 @@ const runApp = ({
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  // Обработка лайков
-  const handleLikeClick = (id, likeElement, likeCounter, likeHandler) => {
-    if (likeElement.classList.contains('elements_like-button_active')) {
-      api.removeLike(id)
-        .then((result) => likeHandler(result, false))
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      api.addLike(id)
-        .then((result) => likeHandler(result, true))
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   };
 
   // Запрос информации о профиле
@@ -155,7 +152,7 @@ const runApp = ({
     items: cards,
     renderer: (item) => {
       item.currentUser = profile._id;
-      cardsContainer.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick));
+      cardsContainer.addItem(createCard(item, '#item-template'));
     },
   }, '.elements');
 
@@ -179,6 +176,7 @@ const runApp = ({
   const formAddCardPopup = new PopupWithForm('.popup_type_add', addCardSubmit);
   const formAddAvatarPopup = new PopupWithForm('.popup_type_add-avatar', setAvatarSubmit);
   const confirmPopup = new PopupWithConfirm('.popup_type_confirm', deleteUserCard);
+  const imagePreview = new PopupWithImage('.popup_type_image');
 };
 
 const initialPromises = Promise.all([

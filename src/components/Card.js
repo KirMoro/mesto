@@ -1,16 +1,15 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick, handleTrashBtnClick, handleLikeClick) {
+  constructor(data, cardSelector, handler) {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
     this._likes = data.likes;
     this._userId = data.currentUser;
     this._ownerCardId = data.owner._id;
-    // this._onClick = handler.onClick;
     this._cardSelector = cardSelector;
-    this._handleCardClick = handleCardClick;
-    this._handleTrashBtnClick = handleTrashBtnClick;
-    this._handleLikeClick = handleLikeClick;
+    this._handleCardClick = handler.onClick;
+    this._handleTrashBtnClick = handler.onDelete;
+    this._handleLikeClick = handler.onlike;
     this._getElement();
     this._trashBtn = this._element.querySelector('.elements__trash-button');
     this._likeElement = this._element.querySelector('.elements__like-button');
@@ -41,8 +40,8 @@ export default class Card {
     }
   }
 
-  _toggleLike(likesArr, operator) {
-    if (!operator) {
+  _toggleLike(likesArr) {
+    if (!likesArr.likes.some((like) => like._id === this._userId)) {
       this._likeCounter.textContent = Math.max(0, likesArr.likes.length - 1);
     } else {
       this._likeCounter.textContent = likesArr.likes.length;
