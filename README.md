@@ -21,7 +21,7 @@ Webpack
 Валидация форм
 
 ## Инструкция по установке
-` ` `
+` `
 git clone https://github.com/kirmoro/mesto.git
 
 cd mesto
@@ -31,7 +31,7 @@ npm i webpack --save-dev
 npm run build
 
 npm run dev
-` ` `
+` `
 
 ## Планы по доработке проекта
 1. Доработать адаптив сайта на промежуточных брейкпонатх.
