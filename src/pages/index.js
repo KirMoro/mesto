@@ -30,9 +30,9 @@ const runApp = ({
   cards,
 }) => {
   // Функция создания карточки
-  const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick, isDelete, isLike) => {
+  const createCard = (cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick, isLike) => {
     const card = new Card(cardItem, cardSelector, handleClickImage, handleTrashBtnClick, handleLikeClick);
-    return card.generateCard(isDelete, isLike);
+    return card.generateCard(isLike);
   };
 
   // попап редактирования профиля
@@ -154,9 +154,9 @@ const runApp = ({
   const cardsContainer = new Section({
     items: cards,
     renderer: (item) => {
+      item.currentUser = profile._id;
       const likeCompare = item.likes.some((like) => like._id === profile._id);
-      const idCompare = profile._id === item.owner._id;
-      cardsContainer.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, idCompare, likeCompare));
+      cardsContainer.addItem(createCard(item, '#item-template', handleCardClick, handleTrashBtnClick, handleLikeClick, likeCompare));
     },
   }, '.elements');
 
@@ -191,7 +191,7 @@ initialPromises
   .then(([profile, cards]) => runApp({
     profile,
     cards,
-  }, api))
+  }))
   .catch((err) => {
     console.log(err);
   });
